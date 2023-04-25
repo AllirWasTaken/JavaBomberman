@@ -3,12 +3,11 @@ package AllirEngine;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scene {
+public class GameScene {
 
     public  List<GameObject> gameObjects;
     public String nameOfScene;
-    public int width;
-    public int height;
+
     public GameObject GetGameObject(int i){
         if(i>=gameObjects.size()||i<0)return null;
         return gameObjects.get(i);
@@ -25,10 +24,8 @@ public class Scene {
     }
 
 
-    public Scene(String name,int width,int height){
+    public GameScene(String name){
         gameObjects=new ArrayList<>();
-        this.width=width;
-        this.height=height;
         this.nameOfScene=name;
         GameManager.AddScene(this);
     }

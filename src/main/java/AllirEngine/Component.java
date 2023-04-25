@@ -10,6 +10,7 @@ public class Component {
     public Hover hover;
     public Click click;
     public Text text;
+    public PhysicalBody physicalBody;
 
     public Component(){
         script=null;
@@ -18,6 +19,7 @@ public class Component {
         hover=null;
         click=null;
         text=null;
+        physicalBody=null;
     }
 
 }

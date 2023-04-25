@@ -1,17 +1,15 @@
 package Bomberman;
 
 import AllirEngine.Components.Script;
+import AllirEngine.GameManager;
 
 public class TestScript extends Script {
 
-    int i=0;
+    int i;
 
     @Override
     public void Update() {
-        if (i < 100){
-            System.out.println("I updated!" + i);
-            i++;
-        }
+
     }
 
     @Override

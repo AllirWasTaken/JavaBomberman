@@ -15,7 +15,10 @@ public class JavaFxModule extends Application {
     public GraphicsContext gc;
     public GameManager manager = GameManager.manager;
     public Timeline tl;
+    public Stage stageF;
 
+    double temp;
+    boolean temp2;
 
     public void Launch(String[] args) {
         launch(args);
@@ -23,10 +26,14 @@ public class JavaFxModule extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        canvas = new Canvas(GameManager.GetCurrentScene().width, GameManager.GetCurrentScene().height);
+        stageF=stage;
+        stage.setTitle("Game Window");
+        canvas = new Canvas(manager.screenWidth, manager.screenHeight);
         gc=canvas.getGraphicsContext2D();
         tl=new Timeline(new KeyFrame(Duration.millis(1),e->manager.RunGame(gc)));
         tl.setCycleCount(Timeline.INDEFINITE);
+        canvas.setOnMouseMoved(e ->  temp  = e.getY());
+        canvas.setOnMouseClicked(e ->  temp2 = true);
         stage.setScene(new Scene(new StackPane(canvas)));
         stage.show();
         tl.play();

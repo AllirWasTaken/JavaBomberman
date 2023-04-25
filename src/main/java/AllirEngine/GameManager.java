@@ -1,57 +1,69 @@
 package AllirEngine;
 
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GameManager {
-    static List<Scene> scenes;
+    static List<GameScene> gameScenes;
     static GameManager manager;
     static int currentScene=-1;
     static boolean isSceneLoaded=false;
     static int loadAction=0;
-    static boolean run;
+    boolean run;
 
     static JavaFxModule jfm;
     String [] MainArgs;
+    public int screenWidth;
+    public int screenHeight;
 
 
 
 
-    public static void AddScene(Scene scene){
+
+    public static void AddScene(GameScene gameScene){
         if(currentScene==-1)currentScene=0;
-        scenes.add(scene);
+        gameScenes.add(gameScene);
     }
-    public static Scene GetCurrentScene(){
+    public static GameScene GetCurrentScene(){
         return GetScene(currentScene);
     }
 
-    public static void Initialize(String[] args){
+    public static void Initialize(String[] args,int screenWidth,int screenHeight){
         new GameManager();
         manager.MainArgs=args;
+        manager.screenHeight=screenHeight;
+        manager.screenWidth=screenWidth;
     }
     public GameManager(){
         if(manager==null) {
-            scenes = new ArrayList<>();
+            gameScenes = new ArrayList<>();
             manager = this;
         }
     }
 
-    public static Scene GetScene(int id){
-        if(id<0||scenes.size()<=id)return null;
-        return scenes.get(id);
+    public static void ShutDownGame(){
+        manager.run=false;
     }
-    public static Scene GetScene(String nameOfScene){
-        for(int i=0;i<scenes.size();i++){
+
+    public static GameScene GetScene(int id){
+        if(id<0|| gameScenes.size()<=id)return null;
+        return gameScenes.get(id);
+    }
+    public static GameScene GetScene(String nameOfScene){
+        for(int i = 0; i< gameScenes.size(); i++){
             if(nameOfScene.equals(GetScene(i).nameOfScene))return GetScene(i);
         }
         return null;
     }
 
     public static int GetSceneNumber(String nameOfScene){
-        for(int i=0;i<scenes.size();i++){
+        for(int i = 0; i< gameScenes.size(); i++){
             if(nameOfScene.equals(GetScene(i).nameOfScene))return i;
         }
         return -1;
@@ -60,24 +72,25 @@ public class GameManager {
         for(int i=0;i<GetCurrentScene().gameObjects.size();i++) {
             if (GetCurrentScene().GetGameObject(i).components.script != null) {
                 if (!GetCurrentScene().GetGameObject(i).components.script.started) {
+                    GetCurrentScene().GetGameObject(i).components.script.thisGameObject=GetCurrentScene().GetGameObject(i);
+                    GetCurrentScene().GetGameObject(i).components.script.thisGameScene=GetCurrentScene();
                     GetCurrentScene().GetGameObject(i).components.script.Start();
-                    GetCurrentScene().GetGameObject(i).components.script.Started();
+                    GetCurrentScene().GetGameObject(i).components.script.started=true;
                 }
                 GetCurrentScene().gameObjects.get(i).components.script.Update();
             }
         }
     }
 
+    void DrawSprites(){
+
+    }
     public static void UnloadScene(){
         if(isSceneLoaded){
-            loadAction=-2;
-        }
-    }
-    public static void LoadScene(){
-        if(!isSceneLoaded){
             loadAction=-1;
         }
     }
+
     public static void SwitchScene(int number){
         loadAction = number;
     }
@@ -87,31 +100,33 @@ public class GameManager {
     }
 
     static void InitializeGame(){
+        manager.run=true;
         jfm=new JavaFxModule();
         jfm.Launch(manager.MainArgs);
     }
 
     public void RunGame(GraphicsContext gc){
-        run=true;
-        while(run){
-
+        if(manager.run){
             if(loadAction!=0){
                 if(loadAction==-1){
-
-                    loadAction=0;
-                }
-                if(loadAction==-2){
-
+                    currentScene=-1;
+                    isSceneLoaded=false;
                     loadAction=0;
                 }
                 if(loadAction>=1){
-
-
+                    currentScene=loadAction;
+                    isSceneLoaded=true;
                     loadAction=0;
                 }
             }
 
-            manager.ExecuteScripts();
+            if(currentScene!=-1){
+                manager.ExecuteScripts();
+                manager.DrawSprites();
+            }
+        }
+        else{
+            Platform.exit();
         }
     }
     public static void LaunchGame(){
