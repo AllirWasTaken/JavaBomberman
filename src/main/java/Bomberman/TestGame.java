@@ -1,16 +1,16 @@
 package Bomberman;
 
-import AllirEngine.GameManager;
-import AllirEngine.GameObject;
-import AllirEngine.Scene;
+import AllirEngine.*;
 
 public class TestGame {
     public static void main(String[] args) {
-        new GameManager();
-        new Scene();
-        GameObject Allir=new GameObject();
-        Allir.components.script=new TestScript();
-        GameManager.LaunchGame();
+        GameManager.Initialize(args);
+        new Scene("TestScene",800,600);
 
+
+
+
+
+        GameManager.LaunchGame();
     }
 }

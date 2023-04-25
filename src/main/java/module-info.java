@@ -2,7 +2,6 @@ module com.example.javabomberman {
     requires javafx.controls;
     requires javafx.fxml;
 
+    exports AllirEngine to javafx.graphics;
 
-    opens com.example.javabomberman to javafx.fxml;
-    exports com.example.javabomberman;
 }
