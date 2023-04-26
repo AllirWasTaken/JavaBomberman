@@ -1,5 +1,7 @@
 package AllirEngine;
 
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class GameScene {
 
     public  List<GameObject> gameObjects;
     public String nameOfScene;
+    public Color backgroundColor;
 
     public GameObject GetGameObject(int i){
         if(i>=gameObjects.size()||i<0)return null;
@@ -27,6 +30,7 @@ public class GameScene {
     public GameScene(String name){
         gameObjects=new ArrayList<>();
         this.nameOfScene=name;
+        backgroundColor=Color.BLACK;
         GameManager.AddScene(this);
     }
 

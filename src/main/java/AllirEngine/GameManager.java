@@ -1,5 +1,7 @@
 package AllirEngine;
 
+import AllirEngine.Components.Sprite;
+import AllirEngine.Components.SpriteType;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -15,12 +17,14 @@ public class GameManager {
     static int currentScene=-1;
     static boolean isSceneLoaded=false;
     static int loadAction=0;
+
     boolean run;
 
     static JavaFxModule jfm;
     String [] MainArgs;
     public int screenWidth;
     public int screenHeight;
+    public static int fpsLimit=60;
 
 
 
@@ -82,8 +86,34 @@ public class GameManager {
         }
     }
 
-    void DrawSprites(){
+    void ResetScripts(){
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            if(GetCurrentScene().GetGameObject(i).components.script!=null){
+                GetCurrentScene().GetGameObject(i).components.script.started=false;
+            }
+        }
+    }
 
+    void DrawSprites(GraphicsContext gc){
+        gc.setFill(GetCurrentScene().backgroundColor);
+        gc.fillRect(0,0,screenWidth,screenHeight);
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            if(GetCurrentScene().GetGameObject(i).components.sprite!=null){
+                Sprite currentSprite=GetCurrentScene().GetGameObject(i).components.sprite;
+                if(currentSprite.type== SpriteType.SIMPLE_RECTANGLE){
+                    gc.setFill(currentSprite.color);
+                    gc.fillRect(GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x
+                            ,GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y,
+                            currentSprite.size.x,currentSprite.size.y);
+                }
+                else if(currentSprite.type== SpriteType.SIMPLE_CIRCLE){
+
+                }
+                else if(currentSprite.type== SpriteType.IMAGE){
+
+                }
+            }
+        }
     }
     public static void UnloadScene(){
         if(isSceneLoaded){
@@ -106,27 +136,32 @@ public class GameManager {
     }
 
     public void RunGame(GraphicsContext gc){
-        if(manager.run){
-            if(loadAction!=0){
-                if(loadAction==-1){
-                    currentScene=-1;
-                    isSceneLoaded=false;
-                    loadAction=0;
-                }
-                if(loadAction>=1){
-                    currentScene=loadAction;
-                    isSceneLoaded=true;
-                    loadAction=0;
-                }
-            }
+        if(GameTimer.WaitForFps(fpsLimit)) {
+            if (manager.run) {
 
-            if(currentScene!=-1){
-                manager.ExecuteScripts();
-                manager.DrawSprites();
+                GameTimer.MeasureFps();
+                if (loadAction != 0) {
+                    ResetScripts();
+                    if (loadAction == -1) {
+                        currentScene = -1;
+                        isSceneLoaded = false;
+                        loadAction = 0;
+                    }
+                    if (loadAction >= 1) {
+                        currentScene = loadAction;
+                        isSceneLoaded = true;
+                        loadAction = 0;
+                    }
+                }
+
+                if (currentScene != -1) {
+                    manager.ExecuteScripts();
+                    manager.DrawSprites(gc);
+                }
+
+            } else {
+                Platform.exit();
             }
-        }
-        else{
-            Platform.exit();
         }
     }
     public static void LaunchGame(){

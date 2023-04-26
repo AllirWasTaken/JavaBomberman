@@ -32,8 +32,6 @@ public class JavaFxModule extends Application {
         gc=canvas.getGraphicsContext2D();
         tl=new Timeline(new KeyFrame(Duration.millis(1),e->manager.RunGame(gc)));
         tl.setCycleCount(Timeline.INDEFINITE);
-        canvas.setOnMouseMoved(e ->  temp  = e.getY());
-        canvas.setOnMouseClicked(e ->  temp2 = true);
         stage.setScene(new Scene(new StackPane(canvas)));
         stage.show();
         tl.play();
