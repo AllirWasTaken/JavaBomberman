@@ -12,9 +12,9 @@ public class TestGame {
         GameScene scene=new GameScene("TestScene");
         GameObject allir=new GameObject("Allir");
         allir.components.script=new TestScript();
-        allir.components.sprite=new Sprite(new Vector2(0,0),new Vector2(10,10), Color.AQUA);
-        ((TestScript) allir.components.script).i=5;
+        allir.components.sprite=new Sprite(new Vector2(100,100),new Vector2(100,100), Color.AQUA);
 
+        scene.backgroundColor=Color.GRAY;
 
         GameManager.LaunchGame();
     }

@@ -3,7 +3,7 @@ package AllirEngine;
 
 public class GameTimer {
     static long start;
-    static double fps=60;
+    public static double fps=60;
 
     static int frames=0;
     static int maxFrames=10;
