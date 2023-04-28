@@ -26,6 +26,7 @@ public class JavaFxModule extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         stageF=stage;
         stage.setTitle("Game Window");
         canvas = new Canvas(manager.screenWidth, manager.screenHeight);

@@ -7,8 +7,8 @@ public class Component {
     public Script script;
     public Sprite sprite;
     public Sound sound;
-    public Hover hover;
-    public Click click;
+    public boolean hover;
+    public boolean click;
     public Text text;
     public PhysicalBody physicalBody;
 
@@ -16,8 +16,8 @@ public class Component {
         script=null;
         sprite=null;
         sound=null;
-        hover=null;
-        click=null;
+        hover=false;
+        click=false;
         text=null;
         physicalBody=null;
     }

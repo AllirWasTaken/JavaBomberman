@@ -4,8 +4,11 @@ import AllirEngine.Components.Sprite;
 import AllirEngine.Components.SpriteType;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,10 +110,18 @@ public class GameManager {
                             currentSprite.size.x,currentSprite.size.y);
                 }
                 else if(currentSprite.type== SpriteType.SIMPLE_CIRCLE){
-
+                    gc.setFill(currentSprite.color);
+                    gc.fillOval(GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x
+                            ,GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y,
+                            currentSprite.size.x,currentSprite.size.x);
                 }
                 else if(currentSprite.type== SpriteType.IMAGE){
-
+                    ImageView temp= new ImageView();
+                    temp.setImage(currentSprite.image);
+                    temp.setX(GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x);
+                    temp.setY(GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y);
+                    temp.setFitWidth(currentSprite.size.x);
+                    temp.setFitHeight(currentSprite.size.y);
                 }
             }
         }

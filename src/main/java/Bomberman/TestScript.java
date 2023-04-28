@@ -18,4 +18,14 @@ public class TestScript extends Script {
     public void Start() {
         System.out.println("I Started!");
     }
+
+    @Override
+    public void OnClick() {
+
+    }
+
+    @Override
+    public void OnHover() {
+
+    }
 }

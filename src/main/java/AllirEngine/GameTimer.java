@@ -21,7 +21,7 @@ public class GameTimer {
         if(frames==maxFrames){
             frames=0;
             actualFps=1000000000f/((double)(System.nanoTime()-start)/(double)maxFrames);
-            ShowFps();
+            //ShowFps();
             fps=(fps*averageFpsAbout-fps+actualFps)/averageFpsAbout;
             updated=true;
             maxFrames=(int)fps/5;
@@ -39,7 +39,10 @@ public class GameTimer {
         counter++;
         if(updated) {
             if((double)fpsTarget/fps>1.1f||(double)fpsTarget/fps<0.9f) {
-                maxCounter *= fps/(double)fpsTarget;
+                double diffrence = fps/(double)fpsTarget;
+                if(diffrence>1.1)diffrence=1.1;
+                if(diffrence<0.9)diffrence=0.9;
+                maxCounter*=diffrence;
             }
             updated=false;
         }
