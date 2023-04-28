@@ -5,10 +5,6 @@ import AllirEngine.Components.SpriteType;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +46,7 @@ public class GameManager {
     public GameManager(){
         if(manager==null) {
             gameScenes = new ArrayList<>();
+            Input.Init();
             manager = this;
         }
     }
@@ -132,6 +129,40 @@ public class GameManager {
         }
     }
 
+    public boolean DoWeColide(GameObject object1, GameObject object2){
+     if(object1.position.x+object1.components.physicalBody.relativePosition.x+object1.components.physicalBody.size.x
+             >=object2.position.x+object2.components.physicalBody.relativePosition.x
+             &&object1.position.y+object1.components.physicalBody.relativePosition.y+object1.components.physicalBody.size.y
+             >=object2.position.y+object2.components.physicalBody.relativePosition.y
+             &&object1.position.x+object1.components.physicalBody.relativePosition.x
+             <=object2.position.x+object2.components.physicalBody.size.x+object2.components.physicalBody.relativePosition.x
+             &&object1.position.y+object1.components.physicalBody.relativePosition.y
+             <=object2.position.y+object2.components.physicalBody.relativePosition.y+object2.components.physicalBody.size.y)
+         return true;
+     else return false;
+    }
+    public void Colisions(){
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            if(GetCurrentScene().GetGameObject(i).components.physicalBody!=null){
+                    for(int j=0;j<GetCurrentScene().gameObjects.size();j++) {
+                        if(GetCurrentScene().GetGameObject(j)!=null){
+                            if(i!=j) {
+                                GameObject object1 = GetCurrentScene().GetGameObject(i);
+                                GameObject object2 = GetCurrentScene().GetGameObject(j);
+                                object1.components.physicalBody.thisGameObject=object1;
+                                object1.components.physicalBody.thisGameScene=GetCurrentScene();
+                                object2.components.physicalBody.thisGameObject=object2;
+                                object2.components.physicalBody.thisGameScene=GetCurrentScene();
+                                if (DoWeColide(object1, object2)) {
+                                    object1.components.physicalBody.OnColision(object2);
+                                    object2.components.physicalBody.OnColision(object1);
+                                }
+                            }
+                    }
+                }
+            }
+        }
+    }
     public static void SwitchScene(int number){
         loadAction = number;
     }
@@ -149,7 +180,6 @@ public class GameManager {
     public void RunGame(GraphicsContext gc){
         if(GameTimer.WaitForFps(fpsLimit)) {
             if (manager.run) {
-
                 GameTimer.MeasureFps();
                 if (loadAction != 0) {
                     ResetScripts();
@@ -166,10 +196,10 @@ public class GameManager {
                 }
 
                 if (currentScene != -1) {
+                    manager.Colisions();
                     manager.ExecuteScripts();
                     manager.DrawSprites(gc);
                 }
-
             } else {
                 Platform.exit();
             }

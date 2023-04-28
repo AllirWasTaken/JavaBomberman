@@ -11,4 +11,5 @@ public abstract class Script {
      public boolean started=false;
      public GameObject thisGameObject;
      public GameScene thisGameScene;
+
 }

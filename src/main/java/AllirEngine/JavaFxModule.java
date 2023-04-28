@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -34,6 +35,12 @@ public class JavaFxModule extends Application {
         tl=new Timeline(new KeyFrame(Duration.millis(1),e->manager.RunGame(gc)));
         tl.setCycleCount(Timeline.INDEFINITE);
         stage.setScene(new Scene(new StackPane(canvas)));
+        stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+            Input.RegisterKey(key.getCode());
+        });
+        stage.getScene().addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
+            Input.RemoveKeyFromRegister(key.getCode());
+        });
         stage.show();
         tl.play();
     }
