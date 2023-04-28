@@ -19,17 +19,17 @@ public class TestScript extends Script {
         if (Input.GetKeyDown(KeyCode.D)) thisGameObject.position.x += 5;
     }
     else if(player==2){
-        if (Input.GetKeyDown(KeyCode.UP)) thisGameObject.position.y -= 5;
-        if (Input.GetKeyDown(KeyCode.DOWN)) thisGameObject.position.y += 5;
-        if (Input.GetKeyDown(KeyCode.LEFT)) thisGameObject.position.x -= 5;
-        if (Input.GetKeyDown(KeyCode.RIGHT)) thisGameObject.position.x += 5;
+        if (Input.GetKeyDown(KeyCode.UP)) thisGameObject.position.y -= 10;
+        if (Input.GetKeyDown(KeyCode.DOWN)) thisGameObject.position.y += 10;
+        if (Input.GetKeyDown(KeyCode.LEFT)) thisGameObject.position.x -= 10;
+        if (Input.GetKeyDown(KeyCode.RIGHT)) thisGameObject.position.x += 10;
     }
 
     }
 
     @Override
     public void Start() {
-        
+
     }
 
     @Override
