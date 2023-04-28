@@ -145,7 +145,7 @@ public class GameManager {
         for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
             if(GetCurrentScene().GetGameObject(i).components.physicalBody!=null){
                     for(int j=0;j<GetCurrentScene().gameObjects.size();j++) {
-                        if(GetCurrentScene().GetGameObject(j)!=null){
+                        if(GetCurrentScene().GetGameObject(j).components.physicalBody!=null){
                             if(i!=j) {
                                 GameObject object1 = GetCurrentScene().GetGameObject(i);
                                 GameObject object2 = GetCurrentScene().GetGameObject(j);
