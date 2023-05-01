@@ -9,7 +9,9 @@ public class TestScript extends Script {
 
 
     public int player;
-
+    boolean visibility=true;
+    boolean replaced=false;
+    boolean photo=true;
     @Override
     public void Update() {
     if(player==1) {
@@ -24,6 +26,38 @@ public class TestScript extends Script {
         if (Input.GetKeyDown(KeyCode.LEFT)) thisGameObject.position.x -= 10;
         if (Input.GetKeyDown(KeyCode.RIGHT)) thisGameObject.position.x += 10;
     }
+
+
+    if(replaced){
+        replaced=false;
+    }
+    else{
+        if(!photo){
+            thisGameObject.components.sprite.ReplaceSprite("Akira.png");
+            photo=true;
+        }
+    }
+
+    if(thisGameObject.clicked){
+        if(visibility){
+            visibility=false;
+            thisGameObject.components.sprite.MakeSpriteInvisible();
+        }
+        else{
+            visibility=true;
+            thisGameObject.components.sprite.MakeSpriteVisible();
+        }
+    }
+    if(thisGameObject.hoveredOver){
+        if(photo){
+            thisGameObject.components.sprite.ReplaceSprite("ShibaAAA.png");
+            photo=false;
+        }
+        replaced=true;
+    }
+
+
+
     }
 
     @Override
@@ -31,13 +65,4 @@ public class TestScript extends Script {
 
     }
 
-    @Override
-    public void OnClick() {
-        System.out.println("Akira has been clicked");
-    }
-
-    @Override
-    public void OnHover() {
-        System.out.println("Akira is getting pointed at");
-    }
 }

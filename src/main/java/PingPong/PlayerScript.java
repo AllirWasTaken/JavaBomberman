@@ -28,13 +28,5 @@ public class PlayerScript extends Script {
 
     }
 
-    @Override
-    public void OnClick() {
 
-    }
-
-    @Override
-    public void OnHover() {
-
-    }
 }

@@ -198,16 +198,26 @@ public class GameManager {
         for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
             GameObject currentGameObject=GetCurrentScene().GetGameObject(i);
             if(currentGameObject.components.hover||currentGameObject.components.click){
+                currentGameObject.hoveredOver=false;
+                currentGameObject.clicked=false;
                 if(Input.mousePosition.x>=currentGameObject.position.x+currentGameObject.components.sprite.relativePosition.x
                         && Input.mousePosition.y>=currentGameObject.position.y+currentGameObject.components.sprite.relativePosition.y
                         && Input.mousePosition.x<=currentGameObject.position.x+currentGameObject.components.sprite.relativePosition.x+currentGameObject.components.sprite.size.x
                         && Input.mousePosition.y<=currentGameObject.position.y+currentGameObject.components.sprite.relativePosition.y+currentGameObject.components.sprite.size.y){
-                    if(currentGameObject.components.hover)currentGameObject.components.script.OnHover();
-                    if(Input.isMouseClicked&&currentGameObject.components.click)currentGameObject.components.script.OnClick();
+                    if(currentGameObject.components.hover)currentGameObject.hoveredOver=true;
+                    if(Input.isMouseClicked&&currentGameObject.components.click)currentGameObject.clicked=true;
                 }
             }
 
         }
+    }
+
+    public static void RemoveSpriteFromScreen(ImageView imageView){
+        manager.group.getChildren().remove(imageView);
+    }
+
+    public static void AddSpriteToScreen(ImageView imageView){
+        manager.group.getChildren().add(imageView);
     }
 
     public void RunGame(GraphicsContext gc){

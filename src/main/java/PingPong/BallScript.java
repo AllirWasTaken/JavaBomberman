@@ -24,13 +24,5 @@ public class BallScript extends Script {
         thisGameObject.position=new Vector2(800,450);
     }
 
-    @Override
-    public void OnClick() {
 
-    }
-
-    @Override
-    public void OnHover() {
-
-    }
 }

@@ -4,6 +4,8 @@ public class GameObject {
     public Component components;
     public String name;
     public Vector2 position;
+    public boolean clicked=false;
+    public boolean hoveredOver=false;
 
 
     public GameObject(String name){

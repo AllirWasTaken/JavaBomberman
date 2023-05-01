@@ -1,5 +1,6 @@
 package AllirEngine.Components;
 
+import AllirEngine.GameManager;
 import AllirEngine.GameObject;
 import AllirEngine.Vector2;
 import javafx.scene.image.Image;
@@ -23,6 +24,7 @@ public class Sprite {
     //Image
     public Image image;
     public ImageView imageView;
+    private boolean visible;
 
     public boolean loaded;
 
@@ -31,6 +33,7 @@ public class Sprite {
         this.type=SpriteType.IMAGE;
         LoadSprite(spriteName,spriteSize);
         loaded=false;
+        visible=true;
     }
     public Sprite(Vector2 relativePosition,float circleRadius,Color color ){
         this.relativePosition=relativePosition;
@@ -38,6 +41,7 @@ public class Sprite {
         this.size=new Vector2(circleRadius);
         this.color=color;
         loaded=false;
+        visible=true;
     }
 
     public Sprite(Vector2 relativePosition,Vector2 rectangleSize,Color color ){
@@ -46,6 +50,7 @@ public class Sprite {
         this.size=rectangleSize;
         this.color=color;
         loaded=false;
+        visible=true;
     }
 
     private void LoadSprite(String spriteName,Vector2 size){
@@ -56,6 +61,29 @@ public class Sprite {
         this.imageView.setFitWidth(this.size.x);
         this.imageView.setFitHeight(this.size.y);
     }
+
+    public void ReplaceSprite(String spriteName){
+        GameManager.RemoveSpriteFromScreen(this.imageView);
+        this.image = new Image(getClass().getResourceAsStream("/img/"+spriteName));
+        this.imageView.setImage(image);
+        this.imageView.setFitWidth(this.size.x);
+        this.imageView.setFitHeight(this.size.y);
+        if(visible)loaded=false;
+    }
+
+    public void MakeSpriteInvisible(){
+        if(visible){
+            visible=false;
+            GameManager.RemoveSpriteFromScreen(this.imageView);
+        }
+    }
+    public void MakeSpriteVisible(){
+        if(!visible){
+            visible=true;
+            GameManager.AddSpriteToScreen(this.imageView);
+        }
+    }
+
 
 
 
