@@ -16,4 +16,5 @@ buildNumber.properties
 .idea
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+out
 

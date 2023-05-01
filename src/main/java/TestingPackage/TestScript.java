@@ -1,4 +1,4 @@
-package Bomberman;
+package TestingPackage;
 
 import javafx.scene.input.KeyCode;
 import AllirEngine.Components.Script;
@@ -24,7 +24,6 @@ public class TestScript extends Script {
         if (Input.GetKeyDown(KeyCode.LEFT)) thisGameObject.position.x -= 10;
         if (Input.GetKeyDown(KeyCode.RIGHT)) thisGameObject.position.x += 10;
     }
-
     }
 
     @Override
@@ -34,11 +33,11 @@ public class TestScript extends Script {
 
     @Override
     public void OnClick() {
-
+        System.out.println("Akira has been clicked");
     }
 
     @Override
     public void OnHover() {
-
+        System.out.println("Akira is getting pointed at");
     }
 }

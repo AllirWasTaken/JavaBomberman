@@ -1,4 +1,4 @@
-package Bomberman;
+package TestingPackage;
 
 import AllirEngine.Components.PhysicalBody;
 import AllirEngine.GameManager;

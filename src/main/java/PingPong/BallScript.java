@@ -12,7 +12,7 @@ public class BallScript extends Script {
     public void Update() {
         thisGameObject.position.x+=speed.x;
         thisGameObject.position.y+=speed.y;
-        if(thisGameObject.position.x<-100||thisGameObject.position.x>1800){
+        if(thisGameObject.position.x<-20||thisGameObject.position.x>1620){
             started=false;
             ((BallColision) thisGameObject.components.physicalBody).lastTouch=null;
         }

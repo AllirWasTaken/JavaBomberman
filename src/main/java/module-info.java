@@ -5,5 +5,6 @@ module com.example.javabomberman {
     requires java.management;
 
     exports AllirEngine to javafx.graphics;
+    exports testing to javafx.graphics;
 
 }

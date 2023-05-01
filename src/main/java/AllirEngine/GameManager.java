@@ -3,7 +3,9 @@ package AllirEngine;
 import AllirEngine.Components.Sprite;
 import AllirEngine.Components.SpriteType;
 import javafx.application.Platform;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class GameManager {
     boolean run;
 
     static JavaFxModule jfm;
+    Group group;
     String [] MainArgs;
     public int screenWidth;
     public int screenHeight;
@@ -50,6 +53,8 @@ public class GameManager {
             manager = this;
         }
     }
+
+
 
     public static void ShutDownGame(){
         manager.run=false;
@@ -113,12 +118,13 @@ public class GameManager {
                             currentSprite.size.x,currentSprite.size.x);
                 }
                 else if(currentSprite.type== SpriteType.IMAGE){
-                    ImageView temp= new ImageView();
-                    temp.setImage(currentSprite.image);
+                    if(!currentSprite.loaded){
+                        group.getChildren().add(currentSprite.imageView);
+                        currentSprite.loaded=true;
+                    }
+                    ImageView temp = currentSprite.imageView;
                     temp.setX(GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x);
                     temp.setY(GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y);
-                    temp.setFitWidth(currentSprite.size.x);
-                    temp.setFitHeight(currentSprite.size.y);
                 }
             }
         }
@@ -177,6 +183,33 @@ public class GameManager {
         jfm.Launch(manager.MainArgs);
     }
 
+    void UnloadSprites(){
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++) {
+            if(GetCurrentScene().GetGameObject(i).components.sprite!=null){
+                if(GetCurrentScene().GetGameObject(i).components.sprite.type==SpriteType.IMAGE){
+                    GetCurrentScene().GetGameObject(i).components.sprite.loaded=false;
+                }
+            }
+        }
+        group.getChildren().clear();
+    }
+
+    void MouseInputMethods(){
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            GameObject currentGameObject=GetCurrentScene().GetGameObject(i);
+            if(currentGameObject.components.hover||currentGameObject.components.click){
+                if(Input.mousePosition.x>=currentGameObject.position.x+currentGameObject.components.sprite.relativePosition.x
+                        && Input.mousePosition.y>=currentGameObject.position.y+currentGameObject.components.sprite.relativePosition.y
+                        && Input.mousePosition.x<=currentGameObject.position.x+currentGameObject.components.sprite.relativePosition.x+currentGameObject.components.sprite.size.x
+                        && Input.mousePosition.y<=currentGameObject.position.y+currentGameObject.components.sprite.relativePosition.y+currentGameObject.components.sprite.size.y){
+                    if(currentGameObject.components.hover)currentGameObject.components.script.OnHover();
+                    if(Input.isMouseClicked&&currentGameObject.components.click)currentGameObject.components.script.OnClick();
+                }
+            }
+
+        }
+    }
+
     public void RunGame(GraphicsContext gc){
         if(GameTimer.WaitForFps(fpsLimit)) {
             if (manager.run) {
@@ -184,11 +217,13 @@ public class GameManager {
                 if (loadAction != 0) {
                     ResetScripts();
                     if (loadAction == -1) {
+                        UnloadSprites();
                         currentScene = -1;
                         isSceneLoaded = false;
                         loadAction = 0;
                     }
                     if (loadAction >= 1) {
+                        UnloadSprites();
                         currentScene = loadAction;
                         isSceneLoaded = true;
                         loadAction = 0;
@@ -197,7 +232,9 @@ public class GameManager {
 
                 if (currentScene != -1) {
                     manager.Colisions();
+                    manager.MouseInputMethods();
                     manager.ExecuteScripts();
+                    if(Input.isMouseClicked)Input.isMouseClicked=false;
                     manager.DrawSprites(gc);
                 }
             } else {
