@@ -2,6 +2,7 @@ package TestingPackage;
 
 import AllirEngine.*;
 import AllirEngine.Components.Sprite;
+import AllirEngine.Components.TextSprite;
 import javafx.scene.paint.Color;
 
 import java.io.FileNotFoundException;
@@ -17,6 +18,7 @@ public class TestGame {
         allir.components.sprite=new Sprite(new Vector2(),new Vector2(300,300),"Akira.png");
         allir.components.click=true;
         allir.components.hover=true;
+        allir.components.textSprite=new TextSprite(new Vector2(),"Akira");
 
         ((TestScript) allir.components.script).player=1;
 

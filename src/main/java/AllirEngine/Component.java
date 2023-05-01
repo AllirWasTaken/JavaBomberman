@@ -9,7 +9,7 @@ public class Component {
     public Sound sound;
     public boolean hover;
     public boolean click;
-    public Text text;
+    public TextSprite textSprite;
     public PhysicalBody physicalBody;
 
     public Component(){
@@ -18,7 +18,7 @@ public class Component {
         sound=null;
         hover=false;
         click=false;
-        text=null;
+        textSprite =null;
         physicalBody=null;
     }
 

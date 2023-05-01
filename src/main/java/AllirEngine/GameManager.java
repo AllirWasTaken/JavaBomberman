@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -220,6 +221,28 @@ public class GameManager {
         manager.group.getChildren().add(imageView);
     }
 
+    public static void RemoveTextFromScreen(Text text){
+        manager.group.getChildren().remove(text);
+    }
+
+    public void DrawText(){
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            GameObject currentGameObject=GetCurrentScene().GetGameObject(i);
+            if(currentGameObject.components.textSprite!=null){
+                if(!currentGameObject.components.textSprite.loaded){
+                    currentGameObject.components.textSprite.loaded=true;
+                    group.getChildren().add(currentGameObject.components.textSprite.text);
+                }
+                currentGameObject.components.textSprite.text.setX(currentGameObject.components.textSprite.relativePosition.x+currentGameObject.position.x);
+                currentGameObject.components.textSprite.text.setY(currentGameObject.components.textSprite.relativePosition.y+currentGameObject.position.y);
+            }
+        }
+    }
+
+    public static void AddTextToScreen(Text text){
+        manager.group.getChildren().add(text);
+    }
+
     public void RunGame(GraphicsContext gc){
         if(GameTimer.WaitForFps(fpsLimit)) {
             if (manager.run) {
@@ -246,6 +269,7 @@ public class GameManager {
                     manager.ExecuteScripts();
                     if(Input.isMouseClicked)Input.isMouseClicked=false;
                     manager.DrawSprites(gc);
+                    manager.DrawText();
                 }
             } else {
                 Platform.exit();

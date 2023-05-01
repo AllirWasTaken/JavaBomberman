@@ -34,6 +34,7 @@ public class TestScript extends Script {
     else{
         if(!photo){
             thisGameObject.components.sprite.ReplaceSprite("Akira.png");
+            thisGameObject.components.textSprite.ChangeText("Akira");
             photo=true;
         }
     }
@@ -42,15 +43,18 @@ public class TestScript extends Script {
         if(visibility){
             visibility=false;
             thisGameObject.components.sprite.MakeSpriteInvisible();
+            thisGameObject.components.textSprite.HideText();
         }
         else{
             visibility=true;
             thisGameObject.components.sprite.MakeSpriteVisible();
+            thisGameObject.components.textSprite.ShowText();
         }
     }
     if(thisGameObject.hoveredOver){
         if(photo){
             thisGameObject.components.sprite.ReplaceSprite("ShibaAAA.png");
+            thisGameObject.components.textSprite.ChangeText("AAAAAAAAAAAAAAAAAAAAAAA");
             photo=false;
         }
         replaced=true;
