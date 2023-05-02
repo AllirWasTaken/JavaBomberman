@@ -220,10 +220,6 @@ public class GameManager {
         manager.group.getChildren().remove(imageView);
     }
 
-    public static void AddSpriteToScreen(ImageView imageView){
-        manager.group.getChildren().add(imageView);
-    }
-
     public static void RemoveTextFromScreen(Text text){
         manager.group.getChildren().remove(text);
     }
