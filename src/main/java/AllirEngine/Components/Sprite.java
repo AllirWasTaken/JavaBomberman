@@ -80,7 +80,7 @@ public class Sprite {
     public void MakeSpriteVisible(){
         if(!visible){
             visible=true;
-            GameManager.AddSpriteToScreen(this.imageView);
+            loaded=false;
         }
     }
 

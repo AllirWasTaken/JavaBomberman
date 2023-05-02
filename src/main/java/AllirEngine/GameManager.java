@@ -184,12 +184,15 @@ public class GameManager {
         jfm.Launch(manager.MainArgs);
     }
 
-    void UnloadSprites(){
+    void UnloadSpritesAndText(){
         for(int i=0;i<GetCurrentScene().gameObjects.size();i++) {
             if(GetCurrentScene().GetGameObject(i).components.sprite!=null){
                 if(GetCurrentScene().GetGameObject(i).components.sprite.type==SpriteType.IMAGE){
                     GetCurrentScene().GetGameObject(i).components.sprite.loaded=false;
                 }
+            }
+            if(GetCurrentScene().GetGameObject(i).components.textSprite!=null){
+                GetCurrentScene().GetGameObject(i).components.textSprite.loaded=false;
             }
         }
         group.getChildren().clear();
@@ -239,9 +242,7 @@ public class GameManager {
         }
     }
 
-    public static void AddTextToScreen(Text text){
-        manager.group.getChildren().add(text);
-    }
+
 
     public void RunGame(GraphicsContext gc){
         if(GameTimer.WaitForFps(fpsLimit)) {
@@ -249,14 +250,13 @@ public class GameManager {
                 GameTimer.MeasureFps();
                 if (loadAction != 0) {
                     ResetScripts();
+                    UnloadSpritesAndText();
                     if (loadAction == -1) {
-                        UnloadSprites();
                         currentScene = -1;
                         isSceneLoaded = false;
                         loadAction = 0;
                     }
                     if (loadAction >= 1) {
-                        UnloadSprites();
                         currentScene = loadAction;
                         isSceneLoaded = true;
                         loadAction = 0;
