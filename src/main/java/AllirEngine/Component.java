@@ -7,17 +7,19 @@ public class Component {
     public Script script;
     public Sprite sprite;
     public Sound sound;
-    public Hover hover;
-    public Click click;
-    public Text text;
+    public boolean hover;
+    public boolean click;
+    public TextSprite textSprite;
+    public PhysicalBody physicalBody;
 
     public Component(){
         script=null;
         sprite=null;
         sound=null;
-        hover=null;
-        click=null;
-        text=null;
+        hover=false;
+        click=false;
+        textSprite =null;
+        physicalBody=null;
     }
 
 }

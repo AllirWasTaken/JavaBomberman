@@ -1,4 +1,4 @@
 package AllirEngine.Components;
 
-public class Hover {
+public class Animation {
 }
