@@ -33,7 +33,7 @@ public class TestScript extends Script {
     }
     else{
         if(!photo){
-            thisGameObject.components.sprite.ReplaceSprite("Akira.png");
+            thisGameObject.components.sprite.ReplaceSprite("postać.png");
             thisGameObject.components.textSprite.ChangeText("Akira");
             photo=true;
         }
@@ -53,7 +53,7 @@ public class TestScript extends Script {
     }
     if(thisGameObject.hoveredOver){
         if(photo){
-            thisGameObject.components.sprite.ReplaceSprite("ShibaAAA.png");
+            thisGameObject.components.sprite.ReplaceSprite("podłoga.png");
             thisGameObject.components.textSprite.ChangeText("AAAAAAAAAAAAAAAAAAAAAAA");
             photo=false;
         }
