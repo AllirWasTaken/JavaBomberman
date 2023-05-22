@@ -1,12 +1,12 @@
 package SampleScene;
 
 import AllirEngine.Components.Sprite;
-import AllirEngine.Components.TextSprite;
-import AllirEngine.GameManager;
 import AllirEngine.GameObject;
 import AllirEngine.GameScene;
 import AllirEngine.Vector2;
 import javafx.scene.paint.Color;
+
+import java.util.Random;
 
 public class SceneManagerScript {
 
@@ -29,6 +29,16 @@ public class SceneManagerScript {
                 }
             }
         }
+        Random r=new Random();
+        for(int y=1;y<15;y++){
+            for(int x=1;x<31;x++) {
+                if (r.nextInt(0, 4) == 0) {
+                    GameObject object = new GameObject("Wall");
+                    object.position = new Vector2(x * 50, y * 50 + 100);
+                    object.components.sprite = new Sprite(new Vector2(), new Vector2(50, 50), "wallDe.png");
+                }
+            }
+        }
     }
 
     void CreateUI(){
@@ -45,6 +55,8 @@ public class SceneManagerScript {
         GameObject object = new GameObject("Character");
         object.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"postać.png");
         object.position=new Vector2(500,500);
+        object.components.script=new scrrr();
+        ((scrrr) object.components.script).player=2;
 
     }
 }
