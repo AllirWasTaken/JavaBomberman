@@ -6,5 +6,7 @@ module com.example.javabomberman {
 
     exports AllirEngine to javafx.graphics;
     exports testing to javafx.graphics;
+    opens Bomberman to javafx.fxml;
+    exports Bomberman;
 
 }
