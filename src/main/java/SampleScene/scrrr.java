@@ -1,10 +1,10 @@
-package TestingPackage;
+package SampleScene;
 
-import javafx.scene.input.KeyCode;
 import AllirEngine.Components.Script;
 import AllirEngine.Input;
+import javafx.scene.input.KeyCode;
 
-public class TestScript extends Script {
+public class scrrr extends Script {
 
 
 
@@ -21,10 +21,10 @@ public class TestScript extends Script {
         if (Input.GetKeyDown(KeyCode.D)) thisGameObject.position.x += 5;
     }
     else if(player==2){
-        if (Input.GetKeyDown(KeyCode.UP)) thisGameObject.position.y -= 10;
-        if (Input.GetKeyDown(KeyCode.DOWN)) thisGameObject.position.y += 10;
-        if (Input.GetKeyDown(KeyCode.LEFT)) thisGameObject.position.x -= 10;
-        if (Input.GetKeyDown(KeyCode.RIGHT)) thisGameObject.position.x += 10;
+        if (Input.GetKeyDown(KeyCode.UP)) thisGameObject.position.y -= 5;
+        if (Input.GetKeyDown(KeyCode.DOWN)) thisGameObject.position.y += 5;
+        if (Input.GetKeyDown(KeyCode.LEFT)) thisGameObject.position.x -= 5;
+        if (Input.GetKeyDown(KeyCode.RIGHT)) thisGameObject.position.x += 5;
     }
 
 
