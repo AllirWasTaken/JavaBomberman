@@ -31,8 +31,8 @@ public class GameMenu {
         aboutButton.components.click = true;
 
         GameObject exitButton = new GameObject("exitButton");
-        exitButton.components.sprite = new Sprite(new Vector2(),new Vector2(250,60), "exit.png");
-        exitButton.position = new Vector2(660, 480);
+        exitButton.components.sprite = new Sprite(new Vector2(),new Vector2(190,60), "exit.png");
+        exitButton.position = new Vector2(690, 480);
         exitButton.components.click = true;
         exitButton.components.script = new MenuButtonsScript();
     }
