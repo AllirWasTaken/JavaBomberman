@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 
 public class TestGame {
     public static void main(String[] args){
-        GameManager.Initialize(args, 1600,900);
+        GameManager.Initialize(args, 1200,600,1600,900);
         GameScene scene=new GameScene("TestScene");
         GameObject allir=new GameObject("Allir");
 

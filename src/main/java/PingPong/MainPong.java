@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 
 public class MainPong {
     public static void main(String[] args) throws FileNotFoundException {
-        GameManager.Initialize(args,1600,900);
+        GameManager.Initialize(args,1600,900,1600,900);
         GameScene scene =new GameScene("MainPong");
         GameObject player1=new GameObject("player1");
         GameObject player2=new GameObject("player2");
