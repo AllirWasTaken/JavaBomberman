@@ -5,7 +5,6 @@ import AllirEngine.Components.SpriteType;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -25,9 +24,13 @@ public class GameManager {
     static JavaFxModule jfm;
     Group group;
     String [] MainArgs;
-    public int screenWidth;
-    public int screenHeight;
+    public int gameWidth;
+    public int gameHeight;
+    public int screenWidth,screenHeight;
+
     public static int fpsLimit=60;
+
+    public float xConvSTG, yConvSTG;
 
 
 
@@ -41,11 +44,15 @@ public class GameManager {
         return GetScene(currentScene);
     }
 
-    public static void Initialize(String[] args,int screenWidth,int screenHeight){
+    public static void Initialize(String[] args,int screenWidth,int screenHeight, int gameWidth, int gameHeight){
         new GameManager();
         manager.MainArgs=args;
+        manager.gameHeight = gameHeight;
+        manager.gameWidth = gameWidth;
         manager.screenHeight=screenHeight;
         manager.screenWidth=screenWidth;
+        manager.xConvSTG =(float)gameWidth/(float)screenWidth;
+        manager.yConvSTG =(float)gameHeight/(float)screenHeight;
     }
     public GameManager(){
         if(manager==null) {
@@ -102,30 +109,32 @@ public class GameManager {
 
     void DrawSprites(GraphicsContext gc){
         gc.setFill(GetCurrentScene().backgroundColor);
-        gc.fillRect(0,0,screenWidth,screenHeight);
+        gc.fillRect(0,0, gameWidth/ xConvSTG, gameHeight/ yConvSTG);
         for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
             if(GetCurrentScene().GetGameObject(i).components.sprite!=null){
                 Sprite currentSprite=GetCurrentScene().GetGameObject(i).components.sprite;
                 if(currentSprite.type== SpriteType.SIMPLE_RECTANGLE){
                     gc.setFill(currentSprite.color);
-                    gc.fillRect(GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x
-                            ,GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y,
-                            currentSprite.size.x,currentSprite.size.y);
+                    gc.fillRect((GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x)/ xConvSTG
+                            ,(GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y)/ yConvSTG,
+                            currentSprite.size.x/ xConvSTG,currentSprite.size.y/ yConvSTG);
                 }
                 else if(currentSprite.type== SpriteType.SIMPLE_CIRCLE){
                     gc.setFill(currentSprite.color);
-                    gc.fillOval(GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x
-                            ,GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y,
-                            currentSprite.size.x,currentSprite.size.x);
+                    gc.fillOval((GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x)/ xConvSTG
+                            ,(GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y)/ yConvSTG,
+                            currentSprite.size.x/ xConvSTG,currentSprite.size.x/ xConvSTG);
                 }
                 else if(currentSprite.type== SpriteType.IMAGE){
                     if(!currentSprite.loaded){
+                        currentSprite.imageView.setFitWidth(currentSprite.size.x/ xConvSTG);
+                        currentSprite.imageView.setFitHeight(currentSprite.size.y/ yConvSTG);
                         group.getChildren().add(currentSprite.imageView);
                         currentSprite.loaded=true;
                     }
                     ImageView temp = currentSprite.imageView;
-                    temp.setX(GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x);
-                    temp.setY(GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y);
+                    temp.setX((GetCurrentScene().GetGameObject(i).position.x+currentSprite.relativePosition.x)/ xConvSTG);
+                    temp.setY((GetCurrentScene().GetGameObject(i).position.y+currentSprite.relativePosition.y)/ yConvSTG);
                 }
             }
         }
@@ -232,8 +241,8 @@ public class GameManager {
                     currentGameObject.components.textSprite.loaded=true;
                     group.getChildren().add(currentGameObject.components.textSprite.text);
                 }
-                currentGameObject.components.textSprite.text.setX(currentGameObject.components.textSprite.relativePosition.x+currentGameObject.position.x);
-                currentGameObject.components.textSprite.text.setY(currentGameObject.components.textSprite.relativePosition.y+currentGameObject.position.y);
+                currentGameObject.components.textSprite.text.setX((currentGameObject.components.textSprite.relativePosition.x+currentGameObject.position.x)/ xConvSTG);
+                currentGameObject.components.textSprite.text.setY((currentGameObject.components.textSprite.relativePosition.y+currentGameObject.position.y)/ yConvSTG);
             }
         }
     }

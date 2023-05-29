@@ -46,7 +46,7 @@ public class JavaFxModule extends Application {
             Input.RemoveKeyFromRegister(key.getCode());
         });
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, (key) -> {
-            Input.mousePosition=new Vector2((float)key.getX(),(float)key.getY());
+            Input.mousePosition=new Vector2((float)key.getX()*manager.xConvSTG,(float)key.getY()*manager.yConvSTG);
         });
         stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, (key) -> {
             Input.HandleMouse(true);
