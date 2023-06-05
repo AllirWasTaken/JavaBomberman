@@ -3,14 +3,13 @@ package AllirEngine.Components;
 import AllirEngine.GameManager;
 import AllirEngine.Vector2;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class TextSprite {
     public Vector2 relativePosition;
     String displayedText;
     boolean visible=true;
+    Font font;
     int fontSize=20;
     public Text text;
     public boolean loaded=false;
@@ -36,14 +35,15 @@ public class TextSprite {
 
     private void CreateText(){
         text=new Text(displayedText);
-        text.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR,fontSize));
+        font = Font.loadFont(getClass().getResourceAsStream("/fonts/"+"Joystick.ttf"),fontSize);
+        text.setFont(font);
     }
 
     public void ChangeText(String newText){
         GameManager.RemoveTextFromScreen(text);
         displayedText=newText;
         text=new Text(displayedText);
-        text.setFont(Font.font("Arial", FontWeight.NORMAL, FontPosture.REGULAR,fontSize));
+        text.setFont(font);
         if(visible)loaded=false;
     }
 

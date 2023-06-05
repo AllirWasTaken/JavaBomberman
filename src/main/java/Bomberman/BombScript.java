@@ -1,6 +1,7 @@
 package Bomberman;
 
 import AllirEngine.Components.Script;
+import AllirEngine.Components.Sound;
 import AllirEngine.Components.Sprite;
 import AllirEngine.GameManager;
 import AllirEngine.GameObject;
@@ -21,7 +22,7 @@ public class BombScript extends Script {
     BombScript(int range){
         this.type=0;
         this.range=range;
-        timeToExplode=300;
+        timeToExplode=180;
     }
     @Override
     public void Update() {
@@ -33,13 +34,15 @@ public class BombScript extends Script {
 
     @Override
     public void Start() {
-
+        thisGameObject.components.sound=new Sound("buum.mp3");
     }
 
     public void Explode(){
         GameManager.RemoveSpriteFromScreen(thisGameObject.components.sprite.imageView);
 
+
         if(type==0){
+            thisGameObject.components.sound.PlaySound();
             Vector2 thisPosition=new Vector2(thisGameObject.position.x,thisGameObject.position.y);
             thisPosition.x-=10;
             thisPosition.y-=10;

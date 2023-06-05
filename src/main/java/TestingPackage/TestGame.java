@@ -1,5 +1,6 @@
 package TestingPackage;
 
+import AllirEngine.Components.Sound;
 import AllirEngine.Components.Sprite;
 import AllirEngine.Components.TextSprite;
 import AllirEngine.GameManager;
@@ -19,7 +20,8 @@ public class TestGame {
         allir.components.sprite=new Sprite(new Vector2(),new Vector2(300,300),"postać.png");
         allir.components.click=true;
         allir.components.hover=true;
-        allir.components.textSprite=new TextSprite(new Vector2(),"Akira");
+        allir.components.textSprite=new TextSprite(new Vector2(),"Akira",100);
+        allir.components.sound = new Sound("clap.mp3");
 
         GameObject wall = new GameObject("wall1");
         wall.components.sprite=new Sprite(new Vector2(),new Vector2(300,300),"wallIn.png");

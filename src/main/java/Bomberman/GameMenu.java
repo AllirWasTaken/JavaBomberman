@@ -1,7 +1,6 @@
 package Bomberman;
 
 import AllirEngine.Components.Sprite;
-import AllirEngine.GameManager;
 import AllirEngine.GameObject;
 import AllirEngine.GameScene;
 import AllirEngine.Vector2;
@@ -59,25 +58,25 @@ public class GameMenu {
 
         GameObject first = new GameObject("firstMap",mapSelection);
         first.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "RandomMap.png");
-        first.position = new Vector2(400, 100);
+        first.position = new Vector2(350, 100);
         first.components.script = new MenuButtonsScript();
         first.components.click = true;
 
         GameObject second = new GameObject("secondMap",mapSelection);
         second.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "NotDoneMap.png");
-        second.position = new Vector2(900, 100);
+        second.position = new Vector2(850, 100);
         second.components.script = new MenuButtonsScript();
         second.components.click = true;
 
         GameObject third = new GameObject("thirdMap",mapSelection);
         third.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "NotDoneMap.png");
-        third.position = new Vector2(400, 500);
+        third.position = new Vector2(350, 500);
         third.components.script = new MenuButtonsScript();
         third.components.click = true;
 
         GameObject fourth = new GameObject("fourthMap",mapSelection);
         fourth.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "NotDoneMap.png");
-        fourth.position = new Vector2(900, 500);
+        fourth.position = new Vector2(850, 500);
         fourth.components.script = new MenuButtonsScript();
         fourth.components.click = true;
     }
