@@ -11,8 +11,7 @@ public class MenuButtonsScript extends Script {
     public void Update() {
         if(thisGameObject.clicked){
             if(thisGameObject.name.equals("startButton")){
-                GameScene clickStart = new GameScene("Start");
-                GameManager.SwitchScene("Start");
+                GameManager.SwitchScene("GameTypeSelection");
             }
             if(thisGameObject.name.equals("aboutButton")){
                 GameScene clickAbout = new GameScene("About");
@@ -20,6 +19,12 @@ public class MenuButtonsScript extends Script {
             }
             if(thisGameObject.name.equals("exitButton")){
                 GameManager.ShutDownGame();
+            }
+            if(thisGameObject.name.equals("Multiplayer")){
+                GameManager.SwitchScene("mapSelection");
+            }
+            if(thisGameObject.name.equals("firstMap")){
+                GameManager.SwitchScene("Map1");
             }
         }
     }

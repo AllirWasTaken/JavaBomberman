@@ -4,6 +4,8 @@ import AllirEngine.Components.Sprite;
 import AllirEngine.Components.SpriteType;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -19,10 +21,12 @@ public class GameManager {
     static boolean isSceneLoaded=false;
     static int loadAction=0;
 
+
     boolean run;
 
     static JavaFxModule jfm;
     Group group;
+    public Canvas canvas;
     String [] MainArgs;
     public int gameWidth;
     public int gameHeight;
@@ -184,12 +188,13 @@ public class GameManager {
     }
     public static void SwitchScene(String name){
         loadAction=GetSceneNumber(name);
-        if(loadAction==-1)loadAction=0;
+        if(loadAction==-1)loadAction=-2;
     }
 
     static void InitializeGame(){
         manager.run=true;
         jfm=new JavaFxModule();
+
         jfm.Launch(manager.MainArgs);
     }
 
@@ -253,18 +258,19 @@ public class GameManager {
         if(GameTimer.WaitForFps(fpsLimit)) {
             if (manager.run) {
                 GameTimer.MeasureFps();
-                if (loadAction != 0) {
+                if (loadAction != -2) {
                     ResetScripts();
                     UnloadSpritesAndText();
                     if (loadAction == -1) {
                         currentScene = -1;
                         isSceneLoaded = false;
-                        loadAction = 0;
+                        loadAction = -2;
                     }
-                    if (loadAction >= 1) {
+                    if (loadAction >= 0) {
                         currentScene = loadAction;
+                        group.getChildren().add(canvas);
                         isSceneLoaded = true;
-                        loadAction = 0;
+                        loadAction = -2;
                     }
                 }
 
