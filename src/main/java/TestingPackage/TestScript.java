@@ -40,6 +40,7 @@ public class TestScript extends Script {
     }
 
     if(thisGameObject.clicked){
+        thisGameObject.components.sound.PlaySound();
         if(visibility){
             visibility=false;
             thisGameObject.components.sprite.MakeSpriteInvisible();

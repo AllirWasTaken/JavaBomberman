@@ -35,6 +35,7 @@ public class JavaFxModule extends Application {
         canvas = new Canvas(manager.screenWidth, manager.screenHeight);
         group= new Group(canvas);
         manager.group=group;
+        manager.canvas= ((Canvas) manager.group.getChildren().get(0));
         gc=canvas.getGraphicsContext2D();
         tl=new Timeline(new KeyFrame(Duration.millis(1),e->manager.RunGame(gc)));
         tl.setCycleCount(Timeline.INDEFINITE);
@@ -46,7 +47,7 @@ public class JavaFxModule extends Application {
             Input.RemoveKeyFromRegister(key.getCode());
         });
         stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, (key) -> {
-            Input.mousePosition=new Vector2((float)key.getX(),(float)key.getY());
+            Input.mousePosition=new Vector2((float)key.getX()*manager.xConvSTG,(float)key.getY()*manager.yConvSTG);
         });
         stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, (key) -> {
             Input.HandleMouse(true);
