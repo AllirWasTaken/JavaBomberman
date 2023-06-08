@@ -25,6 +25,7 @@ public class MainPong {
         player1.components.script=new PlayerScript(1);
         player1.components.physicalBody=new BallColision(new Vector2(),new Vector2(200,200));
 
+
         player2.components.sprite=new Sprite(new Vector2(),new Vector2(200,200),Color.WHITE);
         player2.position=new Vector2(1580,350);
         player2.components.script=new PlayerScript(2);
@@ -35,6 +36,7 @@ public class MainPong {
         ball.components.physicalBody=new BallColision(new Vector2(),new Vector2(20,20));
         ball.components.script=new BallScript();
         ((BallScript) ball.components.script).speed=new Vector2();
+        ball.components.physicalBody.DetectColisions=true;
 
         wall1.components.sprite=new Sprite(new Vector2(),new Vector2(2000,20),Color.GRAY);
         wall1.position=new Vector2(-100,-20);

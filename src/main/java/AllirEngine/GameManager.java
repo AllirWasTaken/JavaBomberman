@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -166,22 +167,154 @@ public class GameManager {
             if(GetCurrentScene().GetGameObject(i).components.physicalBody!=null){
                     for(int j=0;j<GetCurrentScene().gameObjects.size();j++) {
                         if(GetCurrentScene().GetGameObject(j).components.physicalBody!=null){
-                            if(i!=j) {
-                                GameObject object1 = GetCurrentScene().GetGameObject(i);
-                                GameObject object2 = GetCurrentScene().GetGameObject(j);
-                                object1.components.physicalBody.thisGameObject=object1;
-                                object1.components.physicalBody.thisGameScene=GetCurrentScene();
-                                object2.components.physicalBody.thisGameObject=object2;
-                                object2.components.physicalBody.thisGameScene=GetCurrentScene();
-                                if (DoWeColide(object1, object2)) {
-                                    object1.components.physicalBody.OnColision(object2);
-                                    object2.components.physicalBody.OnColision(object1);
+                            if(GetCurrentScene().GetGameObject(j).components.physicalBody.DetectColisions) {
+                                if (i != j) {
+                                    GameObject object1 = GetCurrentScene().GetGameObject(i);
+                                    GameObject object2 = GetCurrentScene().GetGameObject(j);
+                                    object1.components.physicalBody.thisGameObject = object1;
+                                    object1.components.physicalBody.thisGameScene = GetCurrentScene();
+                                    object2.components.physicalBody.thisGameObject = object2;
+                                    object2.components.physicalBody.thisGameScene = GetCurrentScene();
+                                    if (DoWeColide(object1, object2)) {
+                                        object1.components.physicalBody.OnColision(object2);
+                                        object2.components.physicalBody.OnColision(object1);
+                                    }
                                 }
                             }
+                        }
+                    }
+            }
+        }
+    }
+    public void Repulsions(){
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            if(GetCurrentScene().GetGameObject(i).components.physicalBody!=null){
+                for(int j=0;j<GetCurrentScene().gameObjects.size();j++) {
+                    if(GetCurrentScene().GetGameObject(j).components.physicalBody!=null){
+                        if(!GetCurrentScene().GetGameObject(j).components.physicalBody.PassTroughPhysicalBodies) {
+                            if (i != j) {
+                                GameObject object1 = GetCurrentScene().GetGameObject(i);
+                                GameObject object2 = GetCurrentScene().GetGameObject(j);
+                                object1.components.physicalBody.thisGameObject = object1;
+                                object1.components.physicalBody.thisGameScene = GetCurrentScene();
+                                object2.components.physicalBody.thisGameObject = object2;
+                                object2.components.physicalBody.thisGameScene = GetCurrentScene();
+                                if (DoWeColide(object1, object2)) {
+                                    Repel(object1,object2);
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            GameObject object =GetCurrentScene().GetGameObject(i);
+            if(object.components.physicalBody!=null){
+                if(!object.components.physicalBody.PassTroughPhysicalBodies){
+
+                    if(object.components.physicalBody.RepulsionCorrection!=null) {
+                        object.position.x -= object.components.physicalBody.RepulsionCorrection.x;
+                        object.position.y -= object.components.physicalBody.RepulsionCorrection.y;
+                        object.components.physicalBody.RepulsionCorrection=null;
+                    }
+                    object.components.physicalBody.HardRepulsion=false;
+                    object.components.physicalBody.lastPosition= new Vector2(object.position.x,object.position.y);
+                }
+            }
+        }
+    }
+
+    public void Repel(GameObject repeller, GameObject object){
+
+        Vector2 TLDiff,BRDiff;
+        TLDiff=new Vector2(
+                (object.position.x+object.components.physicalBody.relativePosition.x+object.components.physicalBody.size.x)
+                        -(repeller.position.x+repeller.components.physicalBody.relativePosition.x),
+                (object.position.y+object.components.physicalBody.relativePosition.y+object.components.physicalBody.size.y)
+                        -(repeller.position.y+repeller.components.physicalBody.relativePosition.y)
+        );
+        if(TLDiff.x>repeller.components.physicalBody.size.x||TLDiff.x==0)TLDiff.x=-1;
+        if(TLDiff.y>repeller.components.physicalBody.size.y||TLDiff.y==0)TLDiff.y=-1;
+        BRDiff=new Vector2(
+                (repeller.position.x+repeller.components.physicalBody.relativePosition.x+repeller.components.physicalBody.size.x)
+                        -(object.position.x+object.components.physicalBody.relativePosition.x),
+                (repeller.position.y+repeller.components.physicalBody.relativePosition.y+repeller.components.physicalBody.size.y)
+                -(object.position.y+object.components.physicalBody.relativePosition.y)
+        );
+        if(BRDiff.x>repeller.components.physicalBody.size.x||BRDiff.x==0)BRDiff.x=-1;
+        if(BRDiff.y>repeller.components.physicalBody.size.y||BRDiff.y==0)BRDiff.y=-1;
+
+        Vector2 repulsionValue=new Vector2(object.position.x-object.components.physicalBody.lastPosition.x,
+                object.position.y-object.components.physicalBody.lastPosition.y);
+
+
+
+        if(TLDiff.x>0&&TLDiff.y>0){
+            //TL
+            if(TLDiff.x>TLDiff.y)repulsionValue.x=0;
+            else if(TLDiff.x<TLDiff.y)repulsionValue.y=0;
+            else{
+                if(repulsionValue.x<0)repulsionValue.x=0;
+                if(repulsionValue.y<0)repulsionValue.y=0;
+            }
+            if(repulsionValue.x>TLDiff.x)repulsionValue.x=TLDiff.x;
+            if(repulsionValue.y>TLDiff.y)repulsionValue.y=TLDiff.y;
+
+        }
+        else if(BRDiff.x>0&&BRDiff.y>0){
+            //BR
+            if(BRDiff.x>BRDiff.y)repulsionValue.x=0;
+            else if(BRDiff.x<BRDiff.y)repulsionValue.y=0;
+            else{
+                if(repulsionValue.x>0)repulsionValue.x=0;
+                if(repulsionValue.y>0)repulsionValue.y=0;
+            }
+
+            if(repulsionValue.x>BRDiff.x)repulsionValue.x=BRDiff.x;
+            if(repulsionValue.y>BRDiff.y)repulsionValue.y=BRDiff.y;
+        }
+        else if(BRDiff.x>0&&TLDiff.y>0){
+            //TR
+            if(BRDiff.x>TLDiff.y)repulsionValue.x=0;
+            else if(BRDiff.x<TLDiff.y)repulsionValue.y=0;
+            else{
+                if(repulsionValue.x>0)repulsionValue.x=0;
+                if(repulsionValue.y<0)repulsionValue.y=0;
+            }
+            if(repulsionValue.x>BRDiff.x)repulsionValue.x=BRDiff.x;
+            if(repulsionValue.y>TLDiff.y)repulsionValue.y=BRDiff.y;
+        }
+        else if(BRDiff.y>0&&TLDiff.x>0){
+            //BL
+            if(TLDiff.x>BRDiff.y)repulsionValue.x=0;
+            else if(TLDiff.x<BRDiff.y)repulsionValue.y=0;
+            else{
+                if(repulsionValue.x<0)repulsionValue.x=0;
+                if(repulsionValue.y>0)repulsionValue.y=0;
+            }
+            if(repulsionValue.x>TLDiff.x)repulsionValue.x=TLDiff.x;
+            if(repulsionValue.y>BRDiff.y)repulsionValue.y=BRDiff.y;
+        }
+        else{
+            repulsionValue.x=0;
+            repulsionValue.y=0;
+        }
+        if(!object.components.physicalBody.HardRepulsion)object.components.physicalBody.RepulsionCorrection=new Vector2(repulsionValue.x, repulsionValue.y);
+        else{
+            if(Math.abs(repulsionValue.x)!=Math.abs(repulsionValue.y)) {
+                if (object.components.physicalBody.RepulsionCorrection.x == 0)
+                    object.components.physicalBody.RepulsionCorrection.x = repulsionValue.x;
+                if (object.components.physicalBody.RepulsionCorrection.y == 0)
+                    object.components.physicalBody.RepulsionCorrection.y = repulsionValue.y;
+            }
+        }
+        if(Math.abs(repulsionValue.x)!=Math.abs(repulsionValue.y)){
+            object.components.physicalBody.HardRepulsion=true;
+        }
+
+
+
     }
     public static void SwitchScene(int number){
         loadAction = number;
@@ -275,9 +408,10 @@ public class GameManager {
                 }
 
                 if (currentScene != -1) {
-                    manager.Colisions();
                     manager.MouseInputMethods();
                     manager.ExecuteScripts();
+                    manager.Colisions();
+                    manager.Repulsions();
                     if(Input.isMouseClicked)Input.isMouseClicked=false;
                     manager.DrawSprites(gc);
                     manager.DrawText();
