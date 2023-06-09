@@ -1,5 +1,7 @@
 package AllirEngine;
 
+import AllirEngine.Components.AnimationModule;
+import AllirEngine.Components.SingleAnimation;
 import AllirEngine.Components.Sprite;
 import AllirEngine.Components.SpriteType;
 import javafx.application.Platform;
@@ -315,6 +317,32 @@ public class GameManager {
 
 
 
+    }
+
+    void AnimationExecutions(){
+        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
+            GameObject object=GetCurrentScene().gameObjects.get(i);
+            if(object.components.animationModule!=null){
+                AnimationModule animationMod=object.components.animationModule;
+                Sprite spriteMod =object.components.sprite;
+                if(animationMod.stopIt){
+                    animationMod.stopIt=false;
+                    animationMod.isPlaying=false;
+                    animationMod.animationList.get(animationMod.currentlyPlaying).currentFrame=0;
+                    spriteMod.AnimationFrameReplace(animationMod.animationList.get(animationMod.currentlyPlaying).frames.get(0));
+                }
+                else if(animationMod.isPlaying){
+                    SingleAnimation currentAnimation=animationMod.animationList.get(animationMod.currentlyPlaying);
+                    if(currentAnimation.delayLeft==0){
+                        currentAnimation.delayLeft=currentAnimation.framesDelay;
+                        currentAnimation.currentFrame++;
+                        if(currentAnimation.currentFrame==currentAnimation.frames.size())currentAnimation.currentFrame=0;
+                        spriteMod.AnimationFrameReplace(currentAnimation.frames.get(currentAnimation.currentFrame));
+                    }
+                    else currentAnimation.delayLeft--;
+                }
+            }
+        }
     }
     public static void SwitchScene(int number){
         loadAction = number;

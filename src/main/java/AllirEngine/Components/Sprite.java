@@ -71,6 +71,15 @@ public class Sprite {
         if(visible)loaded=false;
     }
 
+    public void AnimationFrameReplace(Image image){
+        GameManager.RemoveSpriteFromScreen(this.imageView);
+        this.image = image;
+        this.imageView.setImage(image);
+        this.imageView.setFitWidth(this.size.x);
+        this.imageView.setFitHeight(this.size.y);
+        if(visible)loaded=false;
+    }
+
     public void MakeSpriteInvisible(){
         if(visible){
             visible=false;
