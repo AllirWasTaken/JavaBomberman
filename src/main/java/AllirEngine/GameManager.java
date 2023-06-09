@@ -247,6 +247,10 @@ public class GameManager {
         if(BRDiff.x>repeller.components.physicalBody.size.x||BRDiff.x==0)BRDiff.x=-1;
         if(BRDiff.y>repeller.components.physicalBody.size.y||BRDiff.y==0)BRDiff.y=-1;
 
+        if(object.components.physicalBody.lastPosition==null){
+            object.components.physicalBody.lastPosition=new Vector2(object.position.x,object.position.y);
+        }
+
         Vector2 repulsionValue=new Vector2(object.position.x-object.components.physicalBody.lastPosition.x,
                 object.position.y-object.components.physicalBody.lastPosition.y);
 
