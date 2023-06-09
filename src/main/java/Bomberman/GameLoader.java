@@ -49,10 +49,10 @@ public class GameLoader {
         object.components.physicalBody=new PlayerBody(new Vector2(10,10),new Vector2(30,30));
 
         object.components.animationModule=new AnimationModule();
-        object.components.animationModule.AddAnimation(10,"GoRight","postaćRight1.png","postaćRight2.png");
-        object.components.animationModule.AddAnimation(10,"GoLeft","postaćLeft1.png","postaćLeft2.png");
-        object.components.animationModule.AddAnimation(10,"GoUp","postaćUp1.png","postaćUp2.png");
-        object.components.animationModule.AddAnimation(10,"GoDown","postaćDown1.png","postaćDown2.png");
+        object.components.animationModule.AddAnimation(7,"GoRight","postaćRight1.png","postaćRight2.png");
+        object.components.animationModule.AddAnimation(7,"GoLeft","postaćLeft1.png","postaćLeft2.png");
+        object.components.animationModule.AddAnimation(7,"GoUp","postaćUp1.png","postaćUp2.png");
+        object.components.animationModule.AddAnimation(7,"GoDown","postaćDown1.png","postaćDown2.png");
 
     }
 

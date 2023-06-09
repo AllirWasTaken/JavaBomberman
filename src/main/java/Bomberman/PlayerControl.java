@@ -13,7 +13,7 @@ public class PlayerControl extends Script {
     boolean moving=false;
     boolean wasMoving=false;
     boolean changedDirection=false;
-    int speed=3;
+    int speed=4;
     @Override
     public void Update() {
         wasMoving=moving;
@@ -33,19 +33,19 @@ public class PlayerControl extends Script {
                 currentDirection=0;
                 moving=true;
             }
-            if (Input.GetKeyDown(KeyCode.DOWN)) {
+            else if (Input.GetKeyDown(KeyCode.DOWN)) {
                 if(currentDirection!=2)changedDirection=true;
                 currentDirection=2;
                 thisGameObject.position.y += speed;
                 moving=true;
             }
-            if (Input.GetKeyDown(KeyCode.LEFT)){
+            else if (Input.GetKeyDown(KeyCode.LEFT)){
                 if(currentDirection!=3)changedDirection=true;
                 currentDirection=3;
                 thisGameObject.position.x -= speed;
                 moving=true;
             }
-            if (Input.GetKeyDown(KeyCode.RIGHT)) {
+            else if (Input.GetKeyDown(KeyCode.RIGHT)) {
                 if(currentDirection!=1)changedDirection=true;
                 currentDirection=1;
                 thisGameObject.position.x += speed;
