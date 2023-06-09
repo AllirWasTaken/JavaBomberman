@@ -4,6 +4,7 @@ package AllirEngine.Components;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SingleAnimation {
@@ -16,6 +17,7 @@ public class SingleAnimation {
     public SingleAnimation(int framesDelay,String animationName,String ... framesNames){
         this.framesDelay=framesDelay;
         this.animationName=animationName;
+        frames=new ArrayList<>();
         for(int i=0;i<framesNames.length;i++){
             frames.add(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/"+framesNames[i])));
         }

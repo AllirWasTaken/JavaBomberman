@@ -16,14 +16,15 @@ public class AnimationModule {
         animationList.add(new SingleAnimation(framesDelay,animationName,frames));
     }
     public void Play(String AnimationName){
+        if(isPlaying)Stop();
         currentlyPlaying=FindAnimation(AnimationName);
         if(currentlyPlaying==-1)return;
-        if(isPlaying)Stop();
         isPlaying=true;
-        animationList.get(currentlyPlaying).delayLeft=0;
+        animationList.get(currentlyPlaying).delayLeft=animationList.get(currentlyPlaying).framesDelay;
         animationList.get(currentlyPlaying).currentFrame=0;
     }
     public void Stop(){
+        if(!isPlaying)return;
         stopIt=true;
     }
     public int FindAnimation(String name){

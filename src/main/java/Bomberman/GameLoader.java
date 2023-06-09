@@ -42,11 +42,17 @@ public class GameLoader {
         GameObject panel = new GameObject("UIPanel",gameScene);
         panel.components.sprite=new Sprite(new Vector2(),new Vector2(1600,100),Color.GRAY);
         GameObject object = new GameObject("Character",gameScene);
-        object.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"postać.png");
+        object.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"postaćRight1.png");
         object.position=new Vector2(500,500);
         object.components.script=new PlayerControl();
         ((PlayerControl) object.components.script).player=2;
         object.components.physicalBody=new PlayerBody(new Vector2(10,10),new Vector2(30,30));
+
+        object.components.animationModule=new AnimationModule();
+        object.components.animationModule.AddAnimation(10,"GoRight","postaćRight1.png","postaćRight2.png");
+        object.components.animationModule.AddAnimation(10,"GoLeft","postaćLeft1.png","postaćLeft2.png");
+        object.components.animationModule.AddAnimation(10,"GoUp","postaćUp1.png","postaćUp2.png");
+        object.components.animationModule.AddAnimation(10,"GoDown","postaćDown1.png","postaćDown2.png");
 
     }
 

@@ -325,6 +325,9 @@ public class GameManager {
             if(object.components.animationModule!=null){
                 AnimationModule animationMod=object.components.animationModule;
                 Sprite spriteMod =object.components.sprite;
+                if(animationMod.currentlyPlaying==3){
+                    int a=5;
+                }
                 if(animationMod.stopIt){
                     animationMod.stopIt=false;
                     animationMod.isPlaying=false;
@@ -441,6 +444,7 @@ public class GameManager {
                     manager.Colisions();
                     manager.Repulsions();
                     if(Input.isMouseClicked)Input.isMouseClicked=false;
+                    manager.AnimationExecutions();
                     manager.DrawSprites(gc);
                     manager.DrawText();
                 }
