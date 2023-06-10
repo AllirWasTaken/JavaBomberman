@@ -54,6 +54,8 @@ public class GameTimer {
             }
             updated=false;
         }
+        if(maxCounter>40)maxCounter=40;
+        if(maxCounter<4)maxCounter=4;
         if(counter>=maxCounter){
             counter=0;
             return true;

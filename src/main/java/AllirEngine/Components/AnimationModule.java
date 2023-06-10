@@ -24,6 +24,7 @@ public class AnimationModule {
         isPlaying=true;
         animationList.get(currentlyPlaying).delayLeft=animationList.get(currentlyPlaying).framesDelay;
         animationList.get(currentlyPlaying).currentFrame=0;
+        thisGameObject.components.sprite.AnimationFrameReplace(animationList.get(currentlyPlaying).frames.get(animationList.get(currentlyPlaying).currentFrame));
     }
     public void Stop(){
         if(!isPlaying)return;

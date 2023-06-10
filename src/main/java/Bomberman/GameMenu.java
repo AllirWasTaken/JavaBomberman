@@ -85,7 +85,15 @@ public class GameMenu {
 
     }
 
-    public void loadSettings(){
+    public void loadControls(){
+        GameScene mapSelection = new GameScene("controls");
+        mapSelection.backgroundColor = Color.CORAL;
+
+        GameObject fourth = new GameObject("StartGame",mapSelection);
+        fourth.components.sprite = new Sprite(new Vector2(),new Vector2(600,200), "NotDoneMap.png");
+        fourth.position = new Vector2(500, 600);
+        fourth.components.script = new MenuButtonsScript();
+        fourth.components.click = true;
 
     }
 

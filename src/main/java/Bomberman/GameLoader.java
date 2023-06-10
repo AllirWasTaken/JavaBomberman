@@ -100,22 +100,62 @@ public class GameLoader {
     }
 
     void LoadUI(){
-        GameObject panel = new GameObject("UIPanel",gameScene);
-        panel.components.sprite=new Sprite(new Vector2(),new Vector2(1600,100),Color.GRAY);
+        for(int i=0;i<4;i++) {
+            GameScene scene = GameManager.GetScene("Map" + (i + 1));
+            GameObject panel = new GameObject("UIPanel", scene);
+            panel.components.sprite = new Sprite(new Vector2(), new Vector2(1600, 100), Color.GRAY);
+
+            GameObject uiManager=new GameObject("UIManager",scene);
+            uiManager.components.script=new UIScript();
+
+            GameObject timer = new GameObject("timer",scene);
+            timer.position=new Vector2(1000,50);
+            timer.components.textSprite=new TextSprite(new Vector2(0,20),"0:00",20);
+        }
     }
     void LoadCharacters(){
-        GameObject object = new GameObject("Character",gameScene);
-        object.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"postać1Right1.png");
-        object.position=new Vector2(500,500);
-        object.components.script=new PlayerControl();
-        ((PlayerControl) object.components.script).player=2;
-        object.components.physicalBody=new PlayerBody(new Vector2(10,10),new Vector2(30,30));
 
-        object.components.animationModule=new AnimationModule();
-        object.components.animationModule.AddAnimation(7,"GoRight","postać1Right1.png","postać1Right2.png");
-        object.components.animationModule.AddAnimation(7,"GoLeft","postać1Left1.png","postać1Left2.png");
-        object.components.animationModule.AddAnimation(7,"GoUp","postać1Up1.png","postać1Up2.png");
-        object.components.animationModule.AddAnimation(7,"GoDown","postać1Down1.png","postać1Down2.png");
+        for(int i=0;i<4;i++){
+            GameScene scene = GameManager.GetScene("Map"+(i+1));
+            for(int j=1;j<4;j++) {
+                GameObject object = new GameObject("Character", scene);
+                object.components.sprite = new Sprite(new Vector2(), new Vector2(50, 50), "postać"+j+"Right1.png");
+
+
+                object.components.script = new PlayerControl();
+                ((PlayerControl) object.components.script).player = j;
+                object.components.physicalBody = new PlayerBody(new Vector2(10, 10), new Vector2(30, 30));
+
+                object.components.animationModule = new AnimationModule();
+                object.components.animationModule.AddAnimation(10, "GoRight", "postać"+j+"Right1.png", "postać"+j+"Right2.png");
+                object.components.animationModule.AddAnimation(10, "GoLeft", "postać"+j+"Left1.png", "postać"+j+"Left2.png");
+                object.components.animationModule.AddAnimation(10, "GoUp", "postać"+j+"Up1.png", "postać"+j+"Up2.png");
+                object.components.animationModule.AddAnimation(10, "GoDown", "postać"+j+"Down1.png", "postać"+j+"Down2.png");
+
+                if(i==0){
+                    if(j==1)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(1500, 150);
+                    if(j==3)object.position = new Vector2(50, 800);
+                }
+                else if(i==1){
+                    if(j==1)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(50, 150);
+                    if(j==3)object.position = new Vector2(50, 150);
+                }
+                else if(i==2){
+                    if(j==1)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(50, 150);
+                    if(j==3)object.position = new Vector2(50, 150);
+                }
+                else if(i==3){
+                    if(j==1)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(50, 150);
+                    if(j==3)object.position = new Vector2(50, 150);
+                }
+            }
+        }
+
+
 
 
     }

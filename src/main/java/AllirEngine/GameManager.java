@@ -39,7 +39,7 @@ public class GameManager {
 
     public float xConvSTG, yConvSTG;
 
-
+    public static boolean playMusic=true,playSound=true;
 
 
 
@@ -415,6 +415,17 @@ public class GameManager {
                 currentGameObject.components.textSprite.text.setY((currentGameObject.components.textSprite.relativePosition.y+currentGameObject.position.y)/ yConvSTG);
             }
         }
+    }
+
+    public static void Destroy(GameObject object){
+        if(object.components.sprite!=null){
+            GameManager.RemoveSpriteFromScreen(object.components.sprite.imageView);
+
+        }
+        if(object.components.textSprite!=null){
+            GameManager.RemoveTextFromScreen(object.components.textSprite.text);
+        }
+        GameManager.GetCurrentScene().gameObjects.remove(object);
     }
 
 
