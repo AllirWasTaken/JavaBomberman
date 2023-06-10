@@ -94,6 +94,9 @@ public class GameManager {
     }
     void ExecuteScripts(){
         for(int i=0;i<GetCurrentScene().gameObjects.size();i++) {
+            if(GetCurrentScene().GetGameObject(i).components.animationModule!=null){
+                GetCurrentScene().GetGameObject(i).components.animationModule.thisGameObject=GetCurrentScene().GetGameObject(i);
+            }
             if (GetCurrentScene().GetGameObject(i).components.script != null) {
                 if (!GetCurrentScene().GetGameObject(i).components.script.started) {
                     GetCurrentScene().GetGameObject(i).components.script.thisGameObject=GetCurrentScene().GetGameObject(i);
@@ -332,13 +335,7 @@ public class GameManager {
                 if(animationMod.currentlyPlaying==3){
                     int a=5;
                 }
-                if(animationMod.stopIt){
-                    animationMod.stopIt=false;
-                    animationMod.isPlaying=false;
-                    animationMod.animationList.get(animationMod.currentlyPlaying).currentFrame=0;
-                    spriteMod.AnimationFrameReplace(animationMod.animationList.get(animationMod.currentlyPlaying).frames.get(0));
-                }
-                else if(animationMod.isPlaying){
+                if(animationMod.isPlaying){
                     SingleAnimation currentAnimation=animationMod.animationList.get(animationMod.currentlyPlaying);
                     if(currentAnimation.delayLeft==0){
                         currentAnimation.delayLeft=currentAnimation.framesDelay;

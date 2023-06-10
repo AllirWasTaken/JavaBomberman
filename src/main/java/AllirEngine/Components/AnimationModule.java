@@ -1,12 +1,14 @@
 package AllirEngine.Components;
 
+import AllirEngine.GameObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnimationModule {
     public List<SingleAnimation> animationList;
     public boolean isPlaying=false;
-    public boolean stopIt=false;
+    public GameObject thisGameObject;
     public int currentlyPlaying;
     public AnimationModule(){
         animationList=new ArrayList<>();
@@ -25,7 +27,9 @@ public class AnimationModule {
     }
     public void Stop(){
         if(!isPlaying)return;
-        stopIt=true;
+        isPlaying=false;
+        animationList.get(currentlyPlaying).currentFrame=0;
+        thisGameObject.components.sprite.AnimationFrameReplace(animationList.get(currentlyPlaying).frames.get(0));
     }
     public int FindAnimation(String name){
         for(int i=0;i<animationList.size();i++){

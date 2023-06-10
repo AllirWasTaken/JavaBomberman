@@ -8,11 +8,16 @@ public class MainBomberman {
         GameMenu menu = new GameMenu();
         GameLoader gameLoader= new GameLoader();
         menu.loadMenu();
-        menu.loadGameTypeSelection();
         menu.loadMapSelection();
 
-        gameLoader.LoadMap1();
-        gameLoader.LoadFPSDisplay();
+        //gameLoader.LoadRandomMap();
+        gameLoader.LoadMap(1,"map1.txt");
+        gameLoader.LoadMap(2,"map2.txt");
+        gameLoader.LoadMap(3,"map3.txt");
+        gameLoader.LoadMap(4,"map4.txt");
+        gameLoader.LoadUI();
+        gameLoader.LoadCharacters();
+        //gameLoader.LoadFPSDisplay();
 
 
         GameManager.LaunchGame();

@@ -14,8 +14,11 @@ public class PlayerControl extends Script {
     boolean wasMoving=false;
     boolean changedDirection=false;
     int speed=4;
+    int gridX,gridY;
     @Override
     public void Update() {
+        gridX=((int)thisGameObject.position.x+25)/50;
+        gridY=((int)thisGameObject.position.y-75)/50;
         wasMoving=moving;
         moving=false;
         changedDirection=false;
@@ -68,9 +71,13 @@ public class PlayerControl extends Script {
         thisGameObject.components.animationModule.Play("GoRight");
     }
     public void SpawnBomb(){
-        GameObject newBomb=new GameObject("Bomb");
-        newBomb.position=new Vector2(thisGameObject.position.x+10,thisGameObject.position.y+10);
-        newBomb.components.sprite=new Sprite(new Vector2(),new Vector2(40,40),"bomb.png");
-        newBomb.components.script=new BombScript(5);
+        if(MapManager.GetTile(MapManager.currentMap,gridX,gridY)==TileTypes.empty) {
+            GameObject newBomb = new GameObject("Bomb");
+            newBomb.position = new Vector2(gridX*50+5, gridY*50 + 100+5);
+            newBomb.components.sprite = new Sprite(new Vector2(), new Vector2(40, 40), "bomb.png");
+            newBomb.components.script = new BombScript(5,gridX,gridY);
+            MapManager.SetTile(TileTypes.bomb,MapManager.currentMap,gridX,gridY);
+            MapManager.SetObject(newBomb,MapManager.currentMap,gridX,gridY);
+        }
     }
 }

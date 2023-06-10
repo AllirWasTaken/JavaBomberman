@@ -11,6 +11,7 @@ public class BombScript extends Script {
     int timeToExplode;
     int type;
     int range;
+    int gridX,gridY;
     BombScript(int range,int type){
         this.type=type;
         timeToExplode=300;
@@ -19,10 +20,12 @@ public class BombScript extends Script {
             timeToExplode=60;
         }
     }
-    BombScript(int range){
+    BombScript(int range,int gridX,int gridY){
         this.type=0;
         this.range=range;
         timeToExplode=180;
+        this.gridX=gridX;
+        this.gridY=gridY;
     }
     @Override
     public void Update() {
@@ -41,14 +44,19 @@ public class BombScript extends Script {
         GameManager.RemoveSpriteFromScreen(thisGameObject.components.sprite.imageView);
 
 
+
         if(type==0){
+            MapManager.SetTile(TileTypes.empty,MapManager.currentMap,gridX,gridY);
+            MapManager.SetObject(null,MapManager.currentMap,gridX,gridY);
             thisGameObject.components.sound.PlaySound();
             Vector2 thisPosition=new Vector2(thisGameObject.position.x,thisGameObject.position.y);
-            thisPosition.x-=10;
-            thisPosition.y-=10;
+            thisPosition.x-=5;
+            thisPosition.y-=5;
             GameObject explosionCenter = new GameObject("Explosion");
             explosionCenter.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y),new Vector2(50,50),"explosionCenter.png");
             explosionCenter.components.script=new BombScript(0,1);
+
+
             for(int i=1;i<range;i++){
                 GameObject up = new GameObject("ExplosionU");
                 up.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y-50*i),new Vector2(50,50),"explosionVertical.png");
@@ -81,6 +89,8 @@ public class BombScript extends Script {
             GameObject left = new GameObject("ExplosionL");
             left.components.sprite = new Sprite(new Vector2(thisPosition.x-50*range,thisPosition.y),new Vector2(50,50),"explosionEndLeft.png");
             left.components.script=new BombScript(0,1);
+
+
 
         }
         GameManager.GetCurrentScene().gameObjects.remove(thisGameObject);
