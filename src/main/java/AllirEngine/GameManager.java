@@ -431,7 +431,7 @@ public class GameManager {
 
 
     public void RunGame(GraphicsContext gc){
-        if(GameTimer.WaitForFps(fpsLimit)) {
+        //if(GameTimer.WaitForFps(fpsLimit)) {
             if (manager.run) {
                 GameTimer.MeasureFps();
                 if (loadAction != -2) {
@@ -463,7 +463,7 @@ public class GameManager {
             } else {
                 Platform.exit();
             }
-        }
+       // }
     }
     public static void LaunchGame(){
         InitializeGame();

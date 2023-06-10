@@ -18,7 +18,7 @@ public class MainBomberman {
         gameLoader.LoadMap(4,"map4.txt");
         gameLoader.LoadUI();
         gameLoader.LoadCharacters();
-        //gameLoader.LoadFPSDisplay();
+        gameLoader.LoadFPSDisplay();
 
 
         GameManager.LaunchGame();

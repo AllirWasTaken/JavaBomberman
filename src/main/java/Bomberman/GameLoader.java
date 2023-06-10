@@ -93,7 +93,59 @@ public class GameLoader {
         }
     }
 
+    void ReloadMap(int number,String fileName){
+        gameScene=GameManager.GetScene("Map"+number);
+        gameScene.gameObjects.clear();
+        Scanner mapScanner;
+        try {
+            mapScanner = new Scanner(getClass().getResourceAsStream("/maps/"+fileName));
+        }
+        catch (Exception e){
+            return;
+        }
+        for(int y=0;y<16;y++){
+            String line = mapScanner.nextLine();
+            String[] lineNumbers=line.split(" ");
+            for(int x=0;x<32;x++){
+                GameObject object = new GameObject("emptyTile",gameScene);
+                object.position=new Vector2(x * 50, y * 50 + 100);
+                object.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"podłoga.png");
+                TileTypes tile=TileTypes.empty;
+                int nr=Integer.parseInt(lineNumbers[x]);
+                if(nr==0){
+                    tile=TileTypes.empty;
+                }
+                else if(nr==1){
+                    tile=TileTypes.wallIn;
+                    object=new GameObject("wallIn",gameScene);
+                    object.position=new Vector2(x * 50, y * 50 + 100);
+                    object.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"wallIn.png");
+                    object.components.physicalBody=new EmptyColider(new Vector2(),new Vector2(50,50));
+                }
+                else if(nr==2){
+                    tile=TileTypes.wallDe;
+                    object=new GameObject("wallDe",gameScene);
+                    object.position=new Vector2(x * 50, y * 50 + 100);
+                    object.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"wallDe.png");
+                    object.components.physicalBody=new EmptyColider(new Vector2(),new Vector2(50,50));
+                    MapManager.SetObject(object,number,x,y);
+                }
+                else if(nr==3){
+                    tile=TileTypes.chest;
+                    object=new GameObject("chest",gameScene);
+                    object.position=new Vector2(x * 50, y * 50 + 100);
+                    object.components.sprite=new Sprite(new Vector2(5,5),new Vector2(40,40),"chest.png");
+                    MapManager.SetObject(object,number,x,y);
+                }
+
+
+                MapManager.SetTile(tile,number,x,y);
+            }
+        }
+    }
+
     void LoadFPSDisplay(){
+        gameScene=GameManager.GetScene("Map1");
         GameObject object = new GameObject("FPSCounter",gameScene);
         object.components.script=new FPSCounter();
         object.components.textSprite=new TextSprite(new Vector2(0,20),"FPS: ",20);
@@ -111,6 +163,13 @@ public class GameLoader {
             GameObject timer = new GameObject("timer",scene);
             timer.position=new Vector2(1000,50);
             timer.components.textSprite=new TextSprite(new Vector2(0,20),"0:00",20);
+
+            GameObject backToMenu=new GameObject("BackToMenu",scene);
+            backToMenu.position=new Vector2(1500,0);
+            backToMenu.components.sprite=new Sprite(new Vector2(5,5),new Vector2(90,90),"ExitToMenu.png");
+            backToMenu.components.script=new UIButtonsScript();
+            backToMenu.components.click=true;
+
         }
     }
     void LoadCharacters(){
