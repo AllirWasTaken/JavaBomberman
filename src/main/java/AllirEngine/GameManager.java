@@ -19,7 +19,7 @@ import java.util.List;
 
 public class GameManager {
     static List<GameScene> gameScenes;
-    static GameManager manager;
+    public static GameManager manager;
     static int currentScene=-1;
     static boolean isSceneLoaded=false;
     static int loadAction=0;
@@ -181,23 +181,22 @@ public class GameManager {
         for(int i=0;i<passivePhysicalBodies.size();i++){
             GameObject object1 = passivePhysicalBodies.get(i);
             if(object1.components.physicalBody!=null){
-                    for(int j=0;j<activePhysicalBodies.size();j++) {
-                        if (i != j) {
-                        GameObject object2 = activePhysicalBodies.get(j);
-                        if(object2.components.physicalBody!=null){
-                            if(object2.components.physicalBody.DetectColisions) {
-                                    object1.components.physicalBody.thisGameObject = object1;
-                                    object1.components.physicalBody.thisGameScene = currentScene;
-                                    object2.components.physicalBody.thisGameObject = object2;
-                                    object2.components.physicalBody.thisGameScene = currentScene;
-                                    if (DoWeColide(object1, object2)) {
-                                        object1.components.physicalBody.OnColision(object2);
-                                        object2.components.physicalBody.OnColision(object1);
-                                    }
-                                }
+                for(int j=0;j<activePhysicalBodies.size();j++) {
+                    GameObject object2 = activePhysicalBodies.get(j);
+                    if(object2.components.physicalBody!=null){
+                        if(object2.components.physicalBody.DetectColisions) {
+                            object1.components.physicalBody.thisGameObject = object1;
+                            object1.components.physicalBody.thisGameScene = currentScene;
+                            object2.components.physicalBody.thisGameObject = object2;
+                            object2.components.physicalBody.thisGameScene = currentScene;
+                            if (DoWeColide(object1, object2)) {
+                                object1.components.physicalBody.OnColision(object2);
+                                object2.components.physicalBody.OnColision(object1);
                             }
                         }
                     }
+
+                }
             }
         }
     }
@@ -210,14 +209,12 @@ public class GameManager {
                     GameObject object2 = activePhysicalBodies.get(j);
                     if(object2.components.physicalBody!=null){
                         if(!object2.components.physicalBody.PassTroughPhysicalBodies) {
-                            if (i != j) {
-                                object1.components.physicalBody.thisGameObject = object1;
-                                object1.components.physicalBody.thisGameScene = currentScene;
-                                object2.components.physicalBody.thisGameObject = object2;
-                                object2.components.physicalBody.thisGameScene = currentScene;
-                                if (DoWeColide(object1, object2)) {
-                                    Repel(object1,object2);
-                                }
+                            object1.components.physicalBody.thisGameObject = object1;
+                            object1.components.physicalBody.thisGameScene = currentScene;
+                            object2.components.physicalBody.thisGameObject = object2;
+                            object2.components.physicalBody.thisGameScene = currentScene;
+                            if (DoWeColide(object1, object2)) {
+                                Repel(object1,object2);
                             }
                         }
                     }

@@ -59,6 +59,7 @@ public class BombScript extends Script {
             GameObject explosionCenter = new GameObject("Explosion");
             explosionCenter.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y),new Vector2(50,50),"explosionCenter.png");
             explosionCenter.components.script=new BombScript(0,1);
+            explosionCenter.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y));
 
             for(int i=0;i<range;i++) {
                 GameObject right = new GameObject("ExplosionU");
@@ -78,6 +79,7 @@ public class BombScript extends Script {
                         MapManager.SetObject(null, MapManager.currentMap, gridX + 1 + i, gridY);
                     }
                     right.components.sprite = new Sprite(new Vector2(thisPosition.x+50*(i+1),thisPosition.y),new Vector2(50,50),"explosionEndRight.png");
+                    right.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x+50*(i+1),thisPosition.y));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX+1+i,gridY)==TileTypes.chest){
@@ -97,6 +99,7 @@ public class BombScript extends Script {
                 else if(MapManager.GetTile(MapManager.currentMap,gridX+1+i,gridY)==TileTypes.wallIn){
                     if(i==0)break;
                     right.components.sprite = new Sprite(new Vector2(thisPosition.x+50*i,thisPosition.y),new Vector2(50,50),"explosionEndRight.png");
+                    right.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x+50*i,thisPosition.y));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX+1+i,gridY)==TileTypes.bomb){
@@ -108,9 +111,11 @@ public class BombScript extends Script {
                 }
                 if(i+1==range){
                     right.components.sprite = new Sprite(new Vector2(thisPosition.x+50*(i+1),thisPosition.y),new Vector2(50,50),"explosionEndRight.png");
+                    right.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x+50*(i+1),thisPosition.y));
                     break;
                 }
                 right.components.sprite = new Sprite(new Vector2(thisPosition.x+50*(i+1),thisPosition.y),new Vector2(50,50),"explosionHorizontal.png");
+                right.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x+50*(i+1),thisPosition.y));
             }
             for(int i=0;i<range;i++) {
                 GameObject up = new GameObject("ExplosionU");
@@ -130,6 +135,7 @@ public class BombScript extends Script {
                         MapManager.SetObject(null, MapManager.currentMap, gridX, gridY+1+i);
                     }
                     up.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y+50*(i+1)),new Vector2(50,50),"explosionEndDown.png");
+                    up.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y+50*(i+1)));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY+1+i)==TileTypes.chest){
@@ -148,6 +154,7 @@ public class BombScript extends Script {
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY+1+i)==TileTypes.wallIn){
                     if(i==0)break;
                     up.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y+50*i),new Vector2(50,50),"explosionEndDown.png");
+                    up.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y+50*i));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY+1+i)==TileTypes.bomb){
@@ -159,9 +166,11 @@ public class BombScript extends Script {
                 }
                 if(i+1==range){
                     up.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y+50*(i+1)),new Vector2(50,50),"explosionEndDown.png");
+                    up.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y+50*(i+1)));
                     break;
                 }
                 up.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y+50*(i+1)),new Vector2(50,50),"explosionVertical.png");
+                up.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y+50*(i+1)));
             }
             for(int i=0;i<range;i++) {
                 GameObject left = new GameObject("ExplosionU");
@@ -181,6 +190,7 @@ public class BombScript extends Script {
                         MapManager.SetObject(null, MapManager.currentMap, gridX - 1 - i, gridY);
                     }
                     left.components.sprite = new Sprite(new Vector2(thisPosition.x-50*(i+1),thisPosition.y),new Vector2(50,50),"explosionEndLeft.png");
+                    left.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x-50*(i+1),thisPosition.y));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX-1-i,gridY)==TileTypes.chest){
@@ -199,6 +209,7 @@ public class BombScript extends Script {
                 else if(MapManager.GetTile(MapManager.currentMap,gridX-1-i,gridY)==TileTypes.wallIn){
                     if(i==0)break;
                     left.components.sprite = new Sprite(new Vector2(thisPosition.x-50*i,thisPosition.y),new Vector2(50,50),"explosionEndLeft.png");
+                    left.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x-50*i,thisPosition.y));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX-1-i,gridY)==TileTypes.bomb){
@@ -210,9 +221,11 @@ public class BombScript extends Script {
                 }
                 if(i+1==range){
                     left.components.sprite = new Sprite(new Vector2(thisPosition.x-50*(i+1),thisPosition.y),new Vector2(50,50),"explosionEndLeft.png");
+                    left.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x-50*(i+1),thisPosition.y));
                     break;
                 }
                 left.components.sprite = new Sprite(new Vector2(thisPosition.x-50*(i+1),thisPosition.y),new Vector2(50,50),"explosionHorizontal.png");
+                left.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x-50*(i+1),thisPosition.y));
             }
             for(int i=0;i<range;i++) {
                 GameObject down = new GameObject("ExplosionU");
@@ -232,6 +245,7 @@ public class BombScript extends Script {
                         MapManager.SetObject(null, MapManager.currentMap, gridX, gridY-1-i);
                     }
                     down.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y-50*(i+1)),new Vector2(50,50),"explosionEndUp.png");
+                    down.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y-50*(i+1)));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY-1-i)==TileTypes.chest){
@@ -250,6 +264,7 @@ public class BombScript extends Script {
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY-1-i)==TileTypes.wallIn){
                     if(i==0)break;
                     down.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y-50*i),new Vector2(50,50),"explosionEndUp.png");
+                    down.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y-50*i));
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY-1-i)==TileTypes.bomb){
@@ -261,9 +276,11 @@ public class BombScript extends Script {
                 }
                 if(i+1==range){
                     down.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y-50*(i+1)),new Vector2(50,50),"explosionEndUp.png");
+                    down.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y-50*(i+1)));
                     break;
                 }
                 down.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y-50*(i+1)),new Vector2(50,50),"explosionVertical.png");
+                down.components.physicalBody = new ExplosionColider(new Vector2(thisPosition.x,thisPosition.y-50*(i+1)));
             }
 
         }

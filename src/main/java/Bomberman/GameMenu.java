@@ -87,13 +87,17 @@ public class GameMenu {
 
     public void loadControls(){
         GameScene mapSelection = new GameScene("controls");
-        mapSelection.backgroundColor = Color.CORAL;
+        mapSelection.backgroundColor = Color.BEIGE;
 
         GameObject fourth = new GameObject("StartGame",mapSelection);
-        fourth.components.sprite = new Sprite(new Vector2(),new Vector2(600,200), "NotDoneMap.png");
-        fourth.position = new Vector2(500, 600);
+        fourth.components.sprite = new Sprite(new Vector2(),new Vector2(600,150), "start.png");
+        fourth.position = new Vector2(500, 650
+        );
         fourth.components.script = new MenuButtonsScript();
         fourth.components.click = true;
+
+        GameObject kapelutek = new GameObject("kapelutek",mapSelection);
+        kapelutek.components.sprite=new Sprite(new Vector2(300,50),new Vector2(1000,562),"controls.png");
 
     }
 

@@ -8,6 +8,8 @@ public class MapManager {
     static TileTypes[][][] mapArray = new TileTypes[4][16][32];
     static GameObject[][][] objectMap = new GameObject[4][16][32];
     public static int currentMap=1;
+    static public boolean p1,p2,p3;
+    static public boolean run;
 
     public MapManager(){
         for(int z=0;z<4;z++) {

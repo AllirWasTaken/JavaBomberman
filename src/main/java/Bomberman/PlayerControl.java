@@ -42,34 +42,33 @@ public class PlayerControl extends Script {
         moving=false;
         changedDirection=false;
 
-        if (Input.GetKeyDown(upKey)){
-            thisGameObject.position.y -= speed;
-            if(currentDirection!=0)changedDirection=true;
-            currentDirection=0;
-            moving=true;
-        }
-        else if (Input.GetKeyDown(downKey)) {
-            if(currentDirection!=2)changedDirection=true;
-            currentDirection=2;
-            thisGameObject.position.y += speed;
-            moving=true;
-        }
-        else if (Input.GetKeyDown(leftKey)){
-            if(currentDirection!=3)changedDirection=true;
-            currentDirection=3;
-            thisGameObject.position.x -= speed;
-            moving=true;
-        }
-        else if (Input.GetKeyDown(rightKey)) {
-            if(currentDirection!=1)changedDirection=true;
-            currentDirection=1;
-            thisGameObject.position.x += speed;
-            moving=true;
-        }
-        if(Input.GetKeyDown(bombKey)){
-            if(bombInPocket>0) {
-                SpawnBomb();
+        if(MapManager.run&&((player==1&&MapManager.p1)||(player==2&&MapManager.p2)||(player==3&&MapManager.p3))) {
+            if (Input.GetKeyDown(upKey)) {
+                thisGameObject.position.y -= speed;
+                if (currentDirection != 0) changedDirection = true;
+                currentDirection = 0;
+                moving = true;
+            } else if (Input.GetKeyDown(downKey)) {
+                if (currentDirection != 2) changedDirection = true;
+                currentDirection = 2;
+                thisGameObject.position.y += speed;
+                moving = true;
+            } else if (Input.GetKeyDown(leftKey)) {
+                if (currentDirection != 3) changedDirection = true;
+                currentDirection = 3;
+                thisGameObject.position.x -= speed;
+                moving = true;
+            } else if (Input.GetKeyDown(rightKey)) {
+                if (currentDirection != 1) changedDirection = true;
+                currentDirection = 1;
+                thisGameObject.position.x += speed;
+                moving = true;
+            }
+            if (Input.GetKeyDown(bombKey)) {
+                if (bombInPocket > 0) {
+                    SpawnBomb();
 
+                }
             }
         }
 
@@ -134,5 +133,12 @@ public class PlayerControl extends Script {
                 thisGameObject.components.animationModule.animationList.get(i).framesDelay = newDelay;
             }
         }
+    }
+
+    public void Kill(){
+        thisGameObject.components.sprite.MakeSpriteInvisible();
+        if(player==1)MapManager.p1=false;
+        if(player==2)MapManager.p2=false;
+        if(player==3)MapManager.p3=false;
     }
 }

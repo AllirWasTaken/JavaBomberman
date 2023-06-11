@@ -15,7 +15,7 @@ public class PowerUpColider extends PhysicalBody {
 
     @Override
     public void OnColision(GameObject gameObject) {
-        if(gameObject.name.equals("Character")) {
+        if(gameObject.name.equals("Character1")||gameObject.name.equals("Character2")||gameObject.name.equals("Character3")) {
             if (type == 1) ((PlayerControl) gameObject.components.script).IncreaseSpeed();
             if (type == 2) ((PlayerControl) gameObject.components.script).bombCount++;
             if (type == 3) ((PlayerControl) gameObject.components.script).bombStrength++;

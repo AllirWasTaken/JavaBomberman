@@ -165,14 +165,72 @@ public class GameLoader {
             uiManager.components.script=new UIScript();
 
             GameObject timer = new GameObject("timer",scene);
-            timer.position=new Vector2(1000,50);
-            timer.components.textSprite=new TextSprite(new Vector2(0,20),"0:00",20);
+            timer.position=new Vector2(1000,30);
+            timer.components.textSprite=new TextSprite(new Vector2(0,20),"TIME\n0:00",20);
 
             GameObject backToMenu=new GameObject("BackToMenu",scene);
             backToMenu.position=new Vector2(1500,0);
             backToMenu.components.sprite=new Sprite(new Vector2(5,5),new Vector2(90,90),"ExitToMenu.png");
             backToMenu.components.script=new UIButtonsScript();
             backToMenu.components.click=true;
+
+        GameObject music=new GameObject("MusicButton",scene);
+        music.position=new Vector2(1300,0);
+        music.components.sprite=new Sprite(new Vector2(5,5),new Vector2(90,90),"musicOn.png");
+        music.components.script=new UIButtonsScript();
+        music.components.click=true;
+
+        GameObject sound=new GameObject("SoundButton",scene);
+        sound.position=new Vector2(1200,0);
+        sound.components.sprite=new Sprite(new Vector2(5,5),new Vector2(90,90),"soundOn.png");
+        sound.components.script=new UIButtonsScript();
+        sound.components.click=true;
+
+
+        for(int i=0;i<3;i++) {
+            Vector2 pos=new Vector2();
+            if(i==0)pos=new Vector2(5, 5);
+            if(i==1)pos=new Vector2(330, 5);
+            if(i==2)pos=new Vector2(655, 5);
+
+            GameObject canvas = new GameObject("canvas", scene);
+            canvas.position = new Vector2(pos.x, pos.y);
+            canvas.components.sprite = new Sprite(new Vector2(), new Vector2(320, 90), Color.DARKGRAY);
+
+            GameObject playerIcon = new GameObject("playerIcon", scene);
+            playerIcon.position=new Vector2(pos.x+5,pos.y+5);
+            playerIcon.components.sprite=new Sprite(new Vector2(),new Vector2(80,80),"player"+(i+1)+"Icon.png");
+
+            GameObject playerName = new GameObject("playerName", scene);
+            playerName.position=new Vector2(pos.x+90,pos.y+5);
+            playerName.components.textSprite=new TextSprite(new Vector2(0,20),"PLAYER"+(i+1),20);
+
+            GameObject bombText = new GameObject("bombText"+(i+1), scene);
+            bombText.position=new Vector2(pos.x+120,pos.y+25);
+            bombText.components.textSprite=new TextSprite(new Vector2(0,20),"BOMBS:1/1",20);
+
+            GameObject strength = new GameObject("strengthText"+(i+1), scene);
+            strength.position=new Vector2(pos.x+120,pos.y+45);
+            strength.components.textSprite=new TextSprite(new Vector2(0,20),"STRENGTH:1",20);
+
+            GameObject speed = new GameObject("speedText"+(i+1), scene);
+            speed.position=new Vector2(pos.x+120,pos.y+65);
+            speed.components.textSprite=new TextSprite(new Vector2(0,20),"SPEED:3",20);
+
+            GameObject strIcon = new GameObject("strengthIcon", scene);
+            strIcon.position=new Vector2(pos.x+100,pos.y+45);
+            strIcon.components.sprite = new Sprite(new Vector2(-5,2),new Vector2(20,20),"PowerExplosion.png");
+
+            strIcon = new GameObject("speedIcon", scene);
+            strIcon.position=new Vector2(pos.x+100,pos.y+65);
+            strIcon.components.sprite = new Sprite(new Vector2(-5,2),new Vector2(20,20),"PowerSpeed.png");
+
+            strIcon = new GameObject("bombIcon", scene);
+            strIcon.position=new Vector2(pos.x+100,pos.y+25);
+            strIcon.components.sprite = new Sprite(new Vector2(-5,2),new Vector2(20,20),"PowerBomb.png");
+
+        }
+
 
     }
     void LoadCharacters(int number){
@@ -181,7 +239,7 @@ public class GameLoader {
             GameScene scene = GameManager.GetScene("Map"+(number));
             number--;
             for(int j=1;j<4;j++) {
-                GameObject object = new GameObject("Character", scene);
+                GameObject object = new GameObject("Character"+j, scene);
                 object.components.sprite = new Sprite(new Vector2(), new Vector2(50, 50), "postać"+j+"Right1.png");
 
 

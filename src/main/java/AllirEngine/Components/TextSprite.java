@@ -35,7 +35,7 @@ public class TextSprite {
 
     private void CreateText(){
         text=new Text(displayedText);
-        font = Font.loadFont(getClass().getResourceAsStream("/fonts/"+"Joystick.ttf"),fontSize);
+        font = Font.loadFont(getClass().getResourceAsStream("/fonts/"+"Joystick.ttf"),fontSize/GameManager.manager.yConvSTG);
         text.setFont(font);
     }
 

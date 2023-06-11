@@ -1,5 +1,6 @@
 package AllirEngine.Components;
 
+import AllirEngine.GameManager;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.MediaPlayer;
 
@@ -11,6 +12,6 @@ public class Sound {
     }
 
     public void PlaySound(){
-        soundFile.play();
+        if(GameManager.playSound)soundFile.play();
     }
 }

@@ -41,6 +41,10 @@ public class MenuButtonsScript extends Script {
             }
             if(thisGameObject.name.equals("StartGame")){
                 GameManager.SwitchScene("Map"+MapManager.currentMap);
+                MapManager.p1=true;
+                MapManager.p2=true;
+                MapManager.p3=true;
+                MapManager.run=true;
             }
         }
     }
