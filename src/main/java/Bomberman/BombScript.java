@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class BombScript extends Script {
     int timeToExplode;
+    boolean touched=false;
     int type;
     int range;
     int gridX,gridY;
@@ -99,7 +100,11 @@ public class BombScript extends Script {
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX+1+i,gridY)==TileTypes.bomb){
-                    ((BombScript) MapManager.GetObject(MapManager.currentMap, gridX+1+i,gridY).components.script).timeToExplode=1;
+                    BombScript script =((BombScript) MapManager.GetObject(MapManager.currentMap, gridX+1+i,gridY).components.script);
+                    if(!script.touched){
+                        script.touched=true;
+                        script.timeToExplode=5;
+                    }
                 }
                 if(i+1==range){
                     right.components.sprite = new Sprite(new Vector2(thisPosition.x+50*(i+1),thisPosition.y),new Vector2(50,50),"explosionEndRight.png");
@@ -146,7 +151,11 @@ public class BombScript extends Script {
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY+1+i)==TileTypes.bomb){
-                    ((BombScript) MapManager.GetObject(MapManager.currentMap, gridX+1+i,gridY).components.script).timeToExplode=1;
+                    BombScript script =((BombScript) MapManager.GetObject(MapManager.currentMap, gridX, gridY+1+i).components.script);
+                    if(!script.touched){
+                        script.touched=true;
+                        script.timeToExplode=5;
+                    }
                 }
                 if(i+1==range){
                     up.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y+50*(i+1)),new Vector2(50,50),"explosionEndDown.png");
@@ -193,7 +202,11 @@ public class BombScript extends Script {
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX-1-i,gridY)==TileTypes.bomb){
-                    ((BombScript) MapManager.GetObject(MapManager.currentMap, gridX+1+i,gridY).components.script).timeToExplode=1;
+                    BombScript script =((BombScript) MapManager.GetObject(MapManager.currentMap, gridX-1-i,gridY).components.script);
+                    if(!script.touched){
+                        script.touched=true;
+                        script.timeToExplode=5;
+                    }
                 }
                 if(i+1==range){
                     left.components.sprite = new Sprite(new Vector2(thisPosition.x-50*(i+1),thisPosition.y),new Vector2(50,50),"explosionEndLeft.png");
@@ -240,7 +253,11 @@ public class BombScript extends Script {
                     break;
                 }
                 else if(MapManager.GetTile(MapManager.currentMap,gridX, gridY-1-i)==TileTypes.bomb){
-                    ((BombScript) MapManager.GetObject(MapManager.currentMap, gridX+1+i,gridY).components.script).timeToExplode=1;
+                    BombScript script =((BombScript) MapManager.GetObject(MapManager.currentMap, gridX, gridY-1-i).components.script);
+                    if(!script.touched){
+                        script.touched=true;
+                        script.timeToExplode=5;
+                    }
                 }
                 if(i+1==range){
                     down.components.sprite = new Sprite(new Vector2(thisPosition.x,thisPosition.y-50*(i+1)),new Vector2(50,50),"explosionEndUp.png");
