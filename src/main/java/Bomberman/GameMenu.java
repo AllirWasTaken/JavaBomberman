@@ -13,8 +13,8 @@ public class GameMenu {
         menuScene.backgroundColor = Color.CORAL;
 
         GameObject gameTitle = new GameObject("gameTitle",menuScene);
-        gameTitle.components.sprite = new Sprite(new Vector2(),new Vector2(570,100), "title.png");
-        gameTitle.position =  new Vector2(500,50);
+        gameTitle.components.sprite = new Sprite(new Vector2(), new Vector2(800, 100), "title.png");
+        gameTitle.position = new Vector2(400, 50);
 
         GameObject startButton = new GameObject("startButton",menuScene);
         startButton.components.sprite = new Sprite(new Vector2(),new Vector2(250,60), "start.png");
@@ -90,11 +90,49 @@ public class GameMenu {
         mapSelection.backgroundColor = Color.CORAL;
 
         GameObject fourth = new GameObject("StartGame",mapSelection);
-        fourth.components.sprite = new Sprite(new Vector2(),new Vector2(600,200), "NotDoneMap.png");
-        fourth.position = new Vector2(500, 600);
+        fourth.components.sprite = new Sprite(new Vector2(),new Vector2(580,130), "start.png");
+        fourth.position = new Vector2(530, 690);
         fourth.components.script = new MenuButtonsScript();
         fourth.components.click = true;
 
+        GameObject controlsTitle = new GameObject("controlsTitle",mapSelection);
+        controlsTitle.components.sprite = new Sprite(new Vector2(), new Vector2(800, 100), "controls.png");
+        controlsTitle.position = new Vector2(450, 50);
+
+        GameObject placingBombs = new GameObject("PlacingBombs",mapSelection);
+        placingBombs.components.sprite = new Sprite(new Vector2(), new Vector2(600, 40), "placingBombs.png");
+        placingBombs.position = new Vector2(550, 200);
+
+        GameObject movement = new GameObject("Movement",mapSelection);
+        movement.components.sprite = new Sprite(new Vector2(), new Vector2(350, 40), "movement.png");
+        movement.position = new Vector2(650, 390);
+
+        addControlsImg("enter", "enter.png", 1300, 270, mapSelection);
+        addControlsImg("u", "u.png", 800, 270, mapSelection);
+        addControlsImg("q", "q.png", 300, 270, mapSelection);
+
+        addControlsImg("w", "w.png", 300, 450, mapSelection);
+        addControlsImg("s", "s.png", 300, 560, mapSelection);
+        addControlsImg("a", "a.png", 190, 500, mapSelection);
+        addControlsImg("d", "d.png", 410, 500, mapSelection);
+
+        addControlsImg("i", "i.png", 800, 450, mapSelection);
+        addControlsImg("k", "k.png", 800, 560, mapSelection);
+        addControlsImg("j", "j.png", 690, 500, mapSelection);
+        addControlsImg("l", "l.png", 910, 500, mapSelection);
+
+        addControlsImg("up", "up.png", 1300, 450, mapSelection);
+        addControlsImg("down", "down.png", 1300, 560, mapSelection);
+        addControlsImg("left", "left.png", 1190, 500, mapSelection);
+        addControlsImg("right", "right.png", 1410, 500, mapSelection);
+
+
+    }
+
+    private void addControlsImg(String objectName, String spriteName, int width, int height, GameScene gameScene){
+        GameObject title = new GameObject(objectName,gameScene);
+        title.components.sprite = new Sprite(new Vector2(), new Vector2(100, 100), spriteName);
+        title.position = new Vector2(width, height);
     }
 
 }
