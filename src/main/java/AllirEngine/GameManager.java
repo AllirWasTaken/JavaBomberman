@@ -41,14 +41,21 @@ public class GameManager {
 
     public static boolean playMusic=true,playSound=true;
 
+    public GameScene currentGameScene;
+
+    public List<GameObject> activePhysicalBodies,passivePhysicalBodies;
+
 
 
     public static void AddScene(GameScene gameScene){
-        if(currentScene==-1)currentScene=0;
         gameScenes.add(gameScene);
+        if(currentScene==-1){
+            currentScene=0;
+            manager.currentGameScene=GetScene(currentScene);
+        }
     }
     public static GameScene GetCurrentScene(){
-        return GetScene(currentScene);
+        return manager.currentGameScene;
     }
 
     public static void Initialize(String[] args,int screenWidth,int screenHeight, int gameWidth, int gameHeight){
@@ -64,6 +71,8 @@ public class GameManager {
     public GameManager(){
         if(manager==null) {
             gameScenes = new ArrayList<>();
+            passivePhysicalBodies=new ArrayList<>();
+            activePhysicalBodies=new ArrayList<>();
             Input.Init();
             manager = this;
         }
@@ -168,18 +177,19 @@ public class GameManager {
      else return false;
     }
     public void Colisions(){
-        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
-            if(GetCurrentScene().GetGameObject(i).components.physicalBody!=null){
-                    for(int j=0;j<GetCurrentScene().gameObjects.size();j++) {
-                        if(GetCurrentScene().GetGameObject(j).components.physicalBody!=null){
-                            if(GetCurrentScene().GetGameObject(j).components.physicalBody.DetectColisions) {
-                                if (i != j) {
-                                    GameObject object1 = GetCurrentScene().GetGameObject(i);
-                                    GameObject object2 = GetCurrentScene().GetGameObject(j);
+        GameScene currentScene= GetCurrentScene();
+        for(int i=0;i<passivePhysicalBodies.size();i++){
+            GameObject object1 = passivePhysicalBodies.get(i);
+            if(object1.components.physicalBody!=null){
+                    for(int j=0;j<activePhysicalBodies.size();j++) {
+                        if (i != j) {
+                        GameObject object2 = activePhysicalBodies.get(j);
+                        if(object2.components.physicalBody!=null){
+                            if(object2.components.physicalBody.DetectColisions) {
                                     object1.components.physicalBody.thisGameObject = object1;
-                                    object1.components.physicalBody.thisGameScene = GetCurrentScene();
+                                    object1.components.physicalBody.thisGameScene = currentScene;
                                     object2.components.physicalBody.thisGameObject = object2;
-                                    object2.components.physicalBody.thisGameScene = GetCurrentScene();
+                                    object2.components.physicalBody.thisGameScene = currentScene;
                                     if (DoWeColide(object1, object2)) {
                                         object1.components.physicalBody.OnColision(object2);
                                         object2.components.physicalBody.OnColision(object1);
@@ -192,18 +202,19 @@ public class GameManager {
         }
     }
     public void Repulsions(){
-        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
-            if(GetCurrentScene().GetGameObject(i).components.physicalBody!=null){
-                for(int j=0;j<GetCurrentScene().gameObjects.size();j++) {
-                    if(GetCurrentScene().GetGameObject(j).components.physicalBody!=null){
-                        if(!GetCurrentScene().GetGameObject(j).components.physicalBody.PassTroughPhysicalBodies) {
+        GameScene currentScene= GetCurrentScene();
+        for(int i=0;i<passivePhysicalBodies.size();i++){
+            GameObject object1 = passivePhysicalBodies.get(i);
+            if(object1.components.physicalBody!=null){
+                for(int j=0;j<activePhysicalBodies.size();j++) {
+                    GameObject object2 = activePhysicalBodies.get(j);
+                    if(object2.components.physicalBody!=null){
+                        if(!object2.components.physicalBody.PassTroughPhysicalBodies) {
                             if (i != j) {
-                                GameObject object1 = GetCurrentScene().GetGameObject(i);
-                                GameObject object2 = GetCurrentScene().GetGameObject(j);
                                 object1.components.physicalBody.thisGameObject = object1;
-                                object1.components.physicalBody.thisGameScene = GetCurrentScene();
+                                object1.components.physicalBody.thisGameScene = currentScene;
                                 object2.components.physicalBody.thisGameObject = object2;
-                                object2.components.physicalBody.thisGameScene = GetCurrentScene();
+                                object2.components.physicalBody.thisGameScene = currentScene;
                                 if (DoWeColide(object1, object2)) {
                                     Repel(object1,object2);
                                 }
@@ -213,8 +224,8 @@ public class GameManager {
                 }
             }
         }
-        for(int i=0;i<GetCurrentScene().gameObjects.size();i++){
-            GameObject object =GetCurrentScene().GetGameObject(i);
+        for(int i=0;i<activePhysicalBodies.size();i++){
+            GameObject object =activePhysicalBodies.get(i);
             if(object.components.physicalBody!=null){
                 if(!object.components.physicalBody.PassTroughPhysicalBodies){
 
@@ -395,6 +406,33 @@ public class GameManager {
         }
     }
 
+    void UpdatePhysicalBodies(){
+        GameScene currentScene=GetCurrentScene();
+        for(int i=0;i<currentScene.gameObjects.size();i++){
+            GameObject object=currentScene.GetGameObject(i);
+            if(object.components.physicalBody!=null){
+                if(!object.components.physicalBody.loaded){
+                    if((!object.components.physicalBody.PassTroughPhysicalBodies)||object.components.physicalBody.DetectColisions){
+                        activePhysicalBodies.add(object);
+                    }
+                    else passivePhysicalBodies.add(object);
+                    object.components.physicalBody.loaded=true;
+                }
+            }
+        }
+    }
+
+    void UnloadPhysicalBodies(){
+        for(int i=0;i<passivePhysicalBodies.size();i++){
+            passivePhysicalBodies.get(i).components.physicalBody.loaded=false;
+        }
+        for(int i=0;i<activePhysicalBodies.size();i++){
+            activePhysicalBodies.get(i).components.physicalBody.loaded=false;
+        }
+        passivePhysicalBodies.clear();
+        activePhysicalBodies.clear();
+    }
+
     public static void RemoveSpriteFromScreen(ImageView imageView){
         manager.group.getChildren().remove(imageView);
     }
@@ -425,6 +463,10 @@ public class GameManager {
         if(object.components.textSprite!=null){
             GameManager.RemoveTextFromScreen(object.components.textSprite.text);
         }
+        if(object.components.physicalBody!=null){
+            manager.activePhysicalBodies.remove(object);
+            manager.passivePhysicalBodies.remove(object);
+        }
         GameManager.GetCurrentScene().gameObjects.remove(object);
     }
 
@@ -437,6 +479,7 @@ public class GameManager {
                 if (loadAction != -2) {
                     ResetScripts();
                     UnloadSpritesAndText();
+                    UnloadPhysicalBodies();
                     if (loadAction == -1) {
                         currentScene = -1;
                         isSceneLoaded = false;
@@ -444,6 +487,7 @@ public class GameManager {
                     }
                     if (loadAction >= 0) {
                         currentScene = loadAction;
+                        currentGameScene = GetScene(currentScene);
                         group.getChildren().add(canvas);
                         isSceneLoaded = true;
                         loadAction = -2;
@@ -453,6 +497,7 @@ public class GameManager {
                 if (currentScene != -1) {
                     manager.MouseInputMethods();
                     manager.ExecuteScripts();
+                    manager.UpdatePhysicalBodies();
                     manager.Colisions();
                     manager.Repulsions();
                     if(Input.isMouseClicked)Input.isMouseClicked=false;

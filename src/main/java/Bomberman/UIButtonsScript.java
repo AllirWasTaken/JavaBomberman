@@ -10,7 +10,7 @@ public class UIButtonsScript extends Script {
             if(thisGameObject.name.equals("BackToMenu")){
                 GameManager.SwitchScene("Menu");
                 GameLoader gameLoader = new GameLoader();
-                gameLoader.ReloadMap(MapManager.currentMap,"Map"+MapManager.currentMap);
+                gameLoader.ReloadMap(MapManager.currentMap,"map"+MapManager.currentMap+".txt");
             }
         }
     }

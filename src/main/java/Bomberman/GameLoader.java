@@ -91,6 +91,8 @@ public class GameLoader {
                 MapManager.SetTile(tile,number,x,y);
             }
         }
+        LoadUI(number);
+        LoadCharacters(number);
     }
 
     void ReloadMap(int number,String fileName){
@@ -142,6 +144,9 @@ public class GameLoader {
                 MapManager.SetTile(tile,number,x,y);
             }
         }
+        LoadUI(number);
+        LoadCharacters(number);
+
     }
 
     void LoadFPSDisplay(){
@@ -151,9 +156,8 @@ public class GameLoader {
         object.components.textSprite=new TextSprite(new Vector2(0,20),"FPS: ",20);
     }
 
-    void LoadUI(){
-        for(int i=0;i<4;i++) {
-            GameScene scene = GameManager.GetScene("Map" + (i + 1));
+    void LoadUI(int number){
+            GameScene scene = GameManager.GetScene("Map" + (number));
             GameObject panel = new GameObject("UIPanel", scene);
             panel.components.sprite = new Sprite(new Vector2(), new Vector2(1600, 100), Color.GRAY);
 
@@ -170,12 +174,12 @@ public class GameLoader {
             backToMenu.components.script=new UIButtonsScript();
             backToMenu.components.click=true;
 
-        }
     }
-    void LoadCharacters(){
+    void LoadCharacters(int number){
 
-        for(int i=0;i<4;i++){
-            GameScene scene = GameManager.GetScene("Map"+(i+1));
+
+            GameScene scene = GameManager.GetScene("Map"+(number));
+            number--;
             for(int j=1;j<4;j++) {
                 GameObject object = new GameObject("Character", scene);
                 object.components.sprite = new Sprite(new Vector2(), new Vector2(50, 50), "postać"+j+"Right1.png");
@@ -191,28 +195,27 @@ public class GameLoader {
                 object.components.animationModule.AddAnimation(10, "GoUp", "postać"+j+"Up1.png", "postać"+j+"Up2.png");
                 object.components.animationModule.AddAnimation(10, "GoDown", "postać"+j+"Down1.png", "postać"+j+"Down2.png");
 
-                if(i==0){
+                if(number==0){
                     if(j==1)object.position = new Vector2(50, 150);
                     if(j==2)object.position = new Vector2(1500, 150);
                     if(j==3)object.position = new Vector2(50, 800);
                 }
-                else if(i==1){
+                else if(number==1){
                     if(j==1)object.position = new Vector2(50, 150);
                     if(j==2)object.position = new Vector2(50, 150);
                     if(j==3)object.position = new Vector2(50, 150);
                 }
-                else if(i==2){
+                else if(number==2){
                     if(j==1)object.position = new Vector2(50, 150);
                     if(j==2)object.position = new Vector2(50, 150);
                     if(j==3)object.position = new Vector2(50, 150);
                 }
-                else if(i==3){
+                else if(number==3){
                     if(j==1)object.position = new Vector2(50, 150);
                     if(j==2)object.position = new Vector2(50, 150);
                     if(j==3)object.position = new Vector2(50, 150);
                 }
             }
-        }
 
 
 

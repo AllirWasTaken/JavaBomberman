@@ -13,6 +13,7 @@ public abstract class PhysicalBody {
     public boolean HardRepulsion=false;
     public boolean PassTroughPhysicalBodies=true;
     public boolean DetectColisions=false;
+    public boolean loaded=false;
 
     public abstract void OnColision(GameObject gameObject);
 
