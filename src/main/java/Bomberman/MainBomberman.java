@@ -6,12 +6,18 @@ public class MainBomberman {
     public static void main(String[] args) {
         GameManager.Initialize(args, 1600, 900,1600,900);
         GameMenu menu = new GameMenu();
-        gameLoader gameLoader= new gameLoader();
+        GameLoader gameLoader= new GameLoader();
         menu.loadMenu();
-        menu.loadGameTypeSelection();
         menu.loadMapSelection();
+        menu.loadControls();
+        menu.loadAbout();
 
-        gameLoader.LoadMap1();
+        //gameLoader.LoadRandomMap();
+        gameLoader.LoadMap(1,"map1.txt");
+        gameLoader.LoadMap(2,"map2.txt");
+        gameLoader.LoadMap(3,"map3.txt");
+        gameLoader.LoadMap(4,"map4.txt");
+        //gameLoader.LoadFPSDisplay();
 
 
         GameManager.LaunchGame();

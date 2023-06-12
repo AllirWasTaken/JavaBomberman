@@ -11,6 +11,7 @@ public class Component {
     public boolean click;
     public TextSprite textSprite;
     public PhysicalBody physicalBody;
+    public AnimationModule animationModule;
 
     public Component(){
         script=null;
@@ -20,6 +21,7 @@ public class Component {
         click=false;
         textSprite =null;
         physicalBody=null;
+        animationModule=null;
     }
 
 }

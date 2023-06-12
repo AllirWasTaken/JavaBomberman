@@ -37,7 +37,7 @@ public class JavaFxModule extends Application {
         manager.group=group;
         manager.canvas= ((Canvas) manager.group.getChildren().get(0));
         gc=canvas.getGraphicsContext2D();
-        tl=new Timeline(new KeyFrame(Duration.millis(1),e->manager.RunGame(gc)));
+        tl=new Timeline(new KeyFrame(Duration.millis(16),e->manager.RunGame(gc)));
         tl.setCycleCount(Timeline.INDEFINITE);
         stage.setScene(new Scene(group,manager.screenWidth,manager.screenHeight));
         stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
