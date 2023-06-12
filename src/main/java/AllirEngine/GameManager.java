@@ -1,9 +1,7 @@
 package AllirEngine;
 
-import AllirEngine.Components.AnimationModule;
-import AllirEngine.Components.SingleAnimation;
-import AllirEngine.Components.Sprite;
-import AllirEngine.Components.SpriteType;
+import AllirEngine.Components.*;
+import AllirEngine.*;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -45,6 +43,10 @@ public class GameManager {
 
     public List<GameObject> activePhysicalBodies,passivePhysicalBodies;
 
+    public Sound musicBack;
+    boolean wasPlayingMusic=true;
+    boolean initM=true;
+
 
 
     public static void AddScene(GameScene gameScene){
@@ -67,6 +69,7 @@ public class GameManager {
         manager.screenWidth=screenWidth;
         manager.xConvSTG =(float)gameWidth/(float)screenWidth;
         manager.yConvSTG =(float)gameHeight/(float)screenHeight;
+
     }
     public GameManager(){
         if(manager==null) {
@@ -467,6 +470,10 @@ public class GameManager {
         GameManager.GetCurrentScene().gameObjects.remove(object);
     }
 
+    void MusicControl(){
+
+    }
+
 
 
     public void RunGame(GraphicsContext gc){
@@ -490,6 +497,22 @@ public class GameManager {
                         loadAction = -2;
                     }
                 }
+                if(initM){
+                    initM=false;
+                    manager.musicBack= new Sound("music.mp3");
+                    manager.musicBack.playMusic("music.mp3");
+                }
+
+                if(playMusic!=wasPlayingMusic){
+                    wasPlayingMusic=playMusic;
+                    if(playMusic){
+                        musicBack.ResumeMusic();
+                    }
+                    else{
+                        musicBack.PauseMusic();
+                    }
+                }
+
 
                 if (currentScene != -1) {
                     manager.MouseInputMethods();

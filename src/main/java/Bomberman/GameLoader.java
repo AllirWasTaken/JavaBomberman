@@ -260,18 +260,18 @@ public class GameLoader {
                 }
                 else if(number==1){
                     if(j==1)object.position = new Vector2(50, 150);
-                    if(j==2)object.position = new Vector2(50, 150);
-                    if(j==3)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(1500, 150);
+                    if(j==3)object.position = new Vector2(50, 800);
                 }
                 else if(number==2){
                     if(j==1)object.position = new Vector2(50, 150);
-                    if(j==2)object.position = new Vector2(50, 150);
-                    if(j==3)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(1500, 150);
+                    if(j==3)object.position = new Vector2(50, 800);
                 }
                 else if(number==3){
                     if(j==1)object.position = new Vector2(50, 150);
-                    if(j==2)object.position = new Vector2(50, 150);
-                    if(j==3)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(1500, 150);
+                    if(j==3)object.position = new Vector2(50, 800);
                 }
             }
 

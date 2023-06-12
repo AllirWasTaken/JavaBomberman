@@ -14,7 +14,6 @@ public class MenuButtonsScript extends Script {
                 GameManager.SwitchScene("mapSelection");
             }
             if(thisGameObject.name.equals("aboutButton")){
-                GameScene clickAbout = new GameScene("About");
                 GameManager.SwitchScene("About");
             }
             if(thisGameObject.name.equals("exitButton")){

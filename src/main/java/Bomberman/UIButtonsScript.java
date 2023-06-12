@@ -22,6 +22,9 @@ public class UIButtonsScript extends Script {
                     thisGameObject.components.sprite.ReplaceSprite("soundOn.png");
                 }
             }
+            if(thisGameObject.name.equals("BackToMenuLite")){
+                GameManager.SwitchScene("Menu");
+            }
             if(thisGameObject.name.equals("MusicButton")){
                 if(GameManager.playMusic){
                     GameManager.playMusic=false;

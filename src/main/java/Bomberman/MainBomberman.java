@@ -10,6 +10,7 @@ public class MainBomberman {
         menu.loadMenu();
         menu.loadMapSelection();
         menu.loadControls();
+        menu.loadAbout();
 
         //gameLoader.LoadRandomMap();
         gameLoader.LoadMap(1,"map1.txt");
