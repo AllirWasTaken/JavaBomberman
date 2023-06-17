@@ -6,5 +6,6 @@ public enum TileTypes{
     wallDe,
     chest,
     powerUp,
-    bomb
+    bomb,
+    vent
 }
