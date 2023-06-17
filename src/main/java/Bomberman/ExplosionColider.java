@@ -14,7 +14,7 @@ public class ExplosionColider extends PhysicalBody {
     }
 
     public ExplosionColider(Vector2 relative){
-        this.relativePosition=relative;
-        this.size=new Vector2(50,50);
+        this.relativePosition=new Vector2(relative.x+5,relative.y+5);
+        this.size=new Vector2(40,40);
     }
 }

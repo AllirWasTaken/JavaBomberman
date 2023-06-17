@@ -20,7 +20,7 @@ public class BombScript extends Script {
         timeToExplode=300;
         this.range=range;
         if(type==1){
-            timeToExplode=60;
+            timeToExplode=30;
         }
     }
     BombScript(int range,int gridX,int gridY){

@@ -14,11 +14,12 @@ public class PlayerControl extends Script {
     boolean wasMoving=false;
     boolean changedDirection=false;
     //playerVariables
-    int speed=2;
+    int speed=3;
     int bombStrength=1;
-    int bombCount=1;
+    int bombCount=2;
     int bombInPocket=1;
     int bombCoolDown=0;
+    int notMovingCounter=0;
     int gridX,gridY;
     KeyCode upKey,downKey,rightKey,leftKey,bombKey;
     @Override
@@ -72,6 +73,14 @@ public class PlayerControl extends Script {
             }
         }
 
+        if(MapManager.run) {
+            if (moving) notMovingCounter = 0;
+            else notMovingCounter++;
+            if (notMovingCounter == 1200) {
+                notMovingCounter = 0;
+                Kill();
+            }
+        }
         if(moving&&(!wasMoving||changedDirection)){
             if(currentDirection==0)thisGameObject.components.animationModule.Play("GoUp");
             if(currentDirection==1)thisGameObject.components.animationModule.Play("GoRight");

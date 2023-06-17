@@ -107,7 +107,8 @@ public class GameMenu {
                         "Ekslpozja bomby rozwala skrzynki i zniszcalne ściany (maksymalnie jedną) oraz zabija graczy w każdym kierunku\n" +
                         "Po rozwaleniu skrzynki można znaleść powerupy które dają prędkosć poruszania postaci, dodatkowe bomby czy siłe bomb\n" +
                         "Rozwalenia ścian ma 20% szans znalezienia w nich skrzynki\n" +
-                        "\n\n\n\n\nProjekt wykonany przez:\n Dawid Kostrzewa 240711\n Magdalena Kozłowska 240715\n Julia Śnieg 24818",16);
+                        "Jeśli gracz się nie rusza dłużej niż 20 sekund zostaje on wyrzucony z gry.\n" +
+                        "\n\n\n\n\nProjekt wykonany przez:\n Dawid Kostrzewa 240711\n Magdalena Kozłowska 240715\n Julia Śnieg 240818",16);
 
     }
 
