@@ -86,6 +86,34 @@ public class GameLoader {
                     object.components.sprite=new Sprite(new Vector2(5,5),new Vector2(40,40),"chest.png");
                     MapManager.SetObject(object,number,x,y);
                 }
+                else if(nr == 4){
+                 GameObject vent= new GameObject("Went 1", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(1);
+                }
+                else if(nr ==5){
+                    GameObject vent= new GameObject("Went 2", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(2);
+                }
+                else if(nr == 6){
+                    GameObject vent= new GameObject("Went 3", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(3);
+                }
+                else if(nr ==7){
+                    GameObject vent= new GameObject("Went 4", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(4);
+                }
 
 
                 MapManager.SetTile(tile,number,x,y);
@@ -139,8 +167,34 @@ public class GameLoader {
                     object.components.sprite=new Sprite(new Vector2(5,5),new Vector2(40,40),"chest.png");
                     MapManager.SetObject(object,number,x,y);
                 }
-
-
+                else if(nr == 4){
+                    GameObject vent= new GameObject("Went 1", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(1);
+                }
+                else if(nr ==5){
+                    GameObject vent= new GameObject("Went 2", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(2);
+                }
+                else if(nr == 6){
+                    GameObject vent= new GameObject("Went 3", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(3);
+                }
+                else if(nr ==7){
+                    GameObject vent= new GameObject("Went 4", gameScene);
+                    vent.position=new Vector2(x * 50, y * 50 + 100);
+                    vent.components.sprite=new Sprite(new Vector2(),new Vector2(50,50),"ClosedVent.png");
+                    tile = TileTypes.vent;
+                    vent.components.script = new VentScript(4);
+                }
                 MapManager.SetTile(tile,number,x,y);
             }
         }
