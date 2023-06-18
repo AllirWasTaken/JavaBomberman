@@ -17,6 +17,8 @@ public class MainBomberman {
         gameLoader.LoadMap(2,"map2.txt");
         gameLoader.LoadMap(3,"map3.txt");
         gameLoader.LoadMap(4,"map4.txt");
+        gameLoader.LoadMap(5,"map5.txt");
+        gameLoader.LoadMap(6,"map6.txt");
         //gameLoader.LoadFPSDisplay();
 
         GameManager.LaunchGame();

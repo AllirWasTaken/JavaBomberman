@@ -58,28 +58,40 @@ public class GameMenu {
         mapSelection.backgroundColor = Color.CORAL;
 
         GameObject first = new GameObject("firstMap",mapSelection);
-        first.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "map1.png");
-        first.position = new Vector2(350, 100);
+        first.components.sprite = new Sprite(new Vector2(),new Vector2(350,250), "map1.png");
+        first.position = new Vector2(225, 150);
         first.components.script = new MenuButtonsScript();
         first.components.click = true;
 
         GameObject second = new GameObject("secondMap",mapSelection);
-        second.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "map2.png");
-        second.position = new Vector2(850, 100);
+        second.components.sprite = new Sprite(new Vector2(),new Vector2(350,250), "map2.png");
+        second.position = new Vector2(625, 150);
         second.components.script = new MenuButtonsScript();
         second.components.click = true;
 
         GameObject third = new GameObject("thirdMap",mapSelection);
-        third.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "map3.png");
-        third.position = new Vector2(350, 500);
+        third.components.sprite = new Sprite(new Vector2(),new Vector2(350,250), "map3.png");
+        third.position = new Vector2(1025, 150);
         third.components.script = new MenuButtonsScript();
         third.components.click = true;
 
         GameObject fourth = new GameObject("fourthMap",mapSelection);
-        fourth.components.sprite = new Sprite(new Vector2(),new Vector2(400,300), "map4.png");
-        fourth.position = new Vector2(850, 500);
+        fourth.components.sprite = new Sprite(new Vector2(),new Vector2(350,250), "map4.png");
+        fourth.position = new Vector2(225, 500);
         fourth.components.script = new MenuButtonsScript();
         fourth.components.click = true;
+
+        GameObject fifth = new GameObject("fifthMap",mapSelection);
+        fifth.components.sprite = new Sprite(new Vector2(),new Vector2(350,250), "map5.png");
+        fifth.position = new Vector2(625, 500);
+        fifth.components.script = new MenuButtonsScript();
+        fifth.components.click = true;
+
+        GameObject sixth = new GameObject("sixthMap",mapSelection);
+        sixth.components.sprite = new Sprite(new Vector2(),new Vector2(350,250), "map6.png");
+        sixth.position = new Vector2(1025, 500);
+        sixth.components.script = new MenuButtonsScript();
+        sixth.components.click = true;
 
         GameObject text = new GameObject("text",mapSelection);
         text.position=new Vector2(450,20);

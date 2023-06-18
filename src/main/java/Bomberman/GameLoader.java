@@ -327,6 +327,16 @@ public class GameLoader {
                     if(j==2)object.position = new Vector2(1500, 150);
                     if(j==3)object.position = new Vector2(50, 800);
                 }
+                else if(number==4){
+                    if(j==1)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(1500, 150);
+                    if(j==3)object.position = new Vector2(50, 800);
+                }
+                else if(number==5){
+                    if(j==1)object.position = new Vector2(50, 150);
+                    if(j==2)object.position = new Vector2(1500, 150);
+                    if(j==3)object.position = new Vector2(50, 800);
+                }
             }
 
 

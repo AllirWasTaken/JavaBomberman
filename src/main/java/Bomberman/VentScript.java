@@ -29,7 +29,7 @@ public class VentScript extends Script{
         }
     }
     GameObject p1,p2,p3,diffvent;
-    double maxodlegosc=100;
+    double maxodlegosc=70;
     double enter=25;
     boolean isopen;
     int nrvent;
