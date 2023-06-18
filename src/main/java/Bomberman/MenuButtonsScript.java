@@ -38,6 +38,14 @@ public class MenuButtonsScript extends Script {
                 MapManager.currentMap=4;
                 GameManager.SwitchScene("controls");
             }
+            if(thisGameObject.name.equals("fifthMap")){
+                MapManager.currentMap=5;
+                GameManager.SwitchScene("controls");
+            }
+            if(thisGameObject.name.equals("sixthMap")){
+                MapManager.currentMap=6;
+                GameManager.SwitchScene("controls");
+            }
             if(thisGameObject.name.equals("StartGame")){
                 GameManager.SwitchScene("Map"+MapManager.currentMap);
                 MapManager.p1=true;

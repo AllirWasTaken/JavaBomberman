@@ -5,14 +5,14 @@ import AllirEngine.GameObject;
 
 public class MapManager {
 
-    static TileTypes[][][] mapArray = new TileTypes[4][16][32];
-    static GameObject[][][] objectMap = new GameObject[4][16][32];
+    static TileTypes[][][] mapArray = new TileTypes[6][16][32];
+    static GameObject[][][] objectMap = new GameObject[6][16][32];
     public static int currentMap=1;
     static public boolean p1,p2,p3;
     static public boolean run;
 
     public MapManager(){
-        for(int z=0;z<4;z++) {
+        for(int z=0;z<6;z++) {
             for (int y = 0; y < 16; y++) {
                 for (int x = 0; x < 32; x++) {
                     mapArray[z][y][x] = TileTypes.empty;
